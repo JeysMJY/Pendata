@@ -413,6 +413,16 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menghitung-jarak">Implementasi Menghitung Jarak</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-iris">Dataset IRIS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-iris">Tabel Klasifikasi Tipe Data Dataset Iris</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-dataset">Ringkasan Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-titanic-campuran">Dataset Titanic (Campuran)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-titanic">Tabel Klasifikasi Tipe Data Dataset Titanic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-statistik">Ringkasan Statistik</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-numerik">Tipe Numerik</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Euclidean Distance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Manhattan Distance</strong></a></li>
@@ -429,6 +439,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-ordinal">Tipe Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-campuran">Tipe Campuran</a></li>
 </ul>
 </li>
 </ul>
@@ -575,6 +586,407 @@ $<span class="math notranslate nohighlight">\(z_{if} = \frac{r_{if} - 1}{M_f - 1
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="implementasi-menghitung-jarak">
 <h1>Implementasi Menghitung Jarak<a class="headerlink" href="#implementasi-menghitung-jarak" title="Link to this heading">#</a></h1>
+<section id="dataset-iris">
+<h2>Dataset IRIS<a class="headerlink" href="#dataset-iris" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/IRIS.csv&#39;</span><span class="p">)</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+RangeIndex: 150 entries, 0 to 149
+Data columns (total 5 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   sepal_length  150 non-null    float64
+ 1   sepal_width   150 non-null    float64
+ 2   petal_length  150 non-null    float64
+ 3   petal_width   150 non-null    float64
+ 4   species       150 non-null    str    
+dtypes: float64(4), str(1)
+memory usage: 6.0 KB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tabel-klasifikasi-tipe-data-dataset-iris">
+<h3>Tabel Klasifikasi Tipe Data Dataset Iris<a class="headerlink" href="#tabel-klasifikasi-tipe-data-dataset-iris" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Nama Kolom</p></th>
+<th class="head text-left"><p>Jenis Variabel (Statistik)</p></th>
+<th class="head text-left"><p>Tipe Data (Pandas)</p></th>
+<th class="head text-left"><p>Deskripsi Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>sepal_length</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Panjang kelopak bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>sepal_width</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Lebar kelopak bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>petal_length</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Panjang mahkota bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>petal_width</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Lebar mahkota bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>species</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Jenis spesies bunga (Setosa, Versicolor, Virginica).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ringkasan-dataset">
+<h3>Ringkasan Dataset<a class="headerlink" href="#ringkasan-dataset" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Total Sampel:</strong> 150 data.</p></li>
+<li><p><strong>Kualitas Data:</strong> Sangat baik (100% Non-Null), tidak ditemukan data kosong pada semua kolom.</p></li>
+<li><p><strong>Karakteristik:</strong> Dominan numerik, sangat cocok untuk algoritma perhitungan jarak seperti <em>Euclidean</em> atau <em>Manhattan</em>.</p></li>
+</ul>
+</section>
+</section>
+<section id="dataset-titanic-campuran">
+<h2>Dataset Titanic (Campuran)<a class="headerlink" href="#dataset-titanic-campuran" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">ttc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="n">ttc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ttc</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    str    
+ 4   Sex          891 non-null    str    
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    str    
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    str    
+ 11  Embarked     889 non-null    str    
+dtypes: float64(2), int64(5), str(5)
+memory usage: 83.7 KB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tabel-klasifikasi-tipe-data-dataset-titanic">
+<h3>Tabel Klasifikasi Tipe Data Dataset Titanic<a class="headerlink" href="#tabel-klasifikasi-tipe-data-dataset-titanic" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Nama Kolom</p></th>
+<th class="head text-left"><p>Jenis Variabel (Statistik)</p></th>
+<th class="head text-left"><p>Tipe Data (Pandas)</p></th>
+<th class="head text-left"><p>Deskripsi Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>PassengerId</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Diskrit)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Identitas unik/ID setiap penumpang.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Survived</strong></p></td>
+<td class="text-left"><p><strong>Binary</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Status keselamatan: <strong>0</strong> (Meninggal), <strong>1</strong> (Selamat).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Pclass</strong></p></td>
+<td class="text-left"><p><strong>Ordinal</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Kelas tiket: <strong>1</strong> (Atas), <strong>2</strong> (Menengah), <strong>3</strong> (Bawah).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Name</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Nama lengkap penumpang.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Sex</strong></p></td>
+<td class="text-left"><p><strong>Binary</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Jenis kelamin: <em>male</em> atau <em>female</em>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Age</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Usia penumpang (memiliki nilai desimal).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>SibSp</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Diskrit)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Jumlah saudara/pasangan di kapal.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Parch</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Diskrit)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Jumlah orang tua/anak di kapal.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Ticket</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Nomor atau kode tiket penumpang.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Fare</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Harga/tarif tiket yang dibayar.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Cabin</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Nomor kabin (banyak nilai kosong/NaN).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Embarked</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Pelabuhan keberangkatan: <strong>C</strong>, <strong>Q</strong>, atau <strong>S</strong>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Sex_Binary</strong></p></td>
+<td class="text-left"><p><strong>Binary (Numerik)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Hasil transformasi jenis kelamin menjadi angka (0/1).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ringkasan-statistik">
+<h3>Ringkasan Statistik<a class="headerlink" href="#ringkasan-statistik" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Total Data:</strong> 891 baris.</p></li>
+<li><p><strong>Data Campuran:</strong> Terdiri dari angka (Numerik) dan teks (Kategorikal).</p></li>
+<li><p><strong>Missing Values:</strong> Terdapat data kosong pada kolom <code class="docutils literal notranslate"><span class="pre">Age</span></code>, <code class="docutils literal notranslate"><span class="pre">Cabin</span></code>, dan <code class="docutils literal notranslate"><span class="pre">Embarked</span></code>.</p></li>
+</ul>
+</section>
+</section>
 <section id="tipe-numerik">
 <h2>Tipe Numerik<a class="headerlink" href="#tipe-numerik" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -1304,6 +1716,311 @@ $<span class="math notranslate nohighlight">\(d(x,y) = |z_{i1} - z_{i2}|\)</span
 </div>
 </div>
 </section>
+<section id="tipe-campuran">
+<h2>Tipe Campuran<a class="headerlink" href="#tipe-campuran" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Import Library</strong><br>
+Langkah awal untuk memproses data campuran dan perhitungan jarak.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gower</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Memuat Dataset Titanic</strong></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca dataset Titanic dari sumber publik</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan 5 data teratas</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Memilih Data Pembanding (Campuran)</strong><br>
+Kita akan mengambil dua baris data untuk dibandingkan dengan mempertimbangkan semua jenis atribut (numerik, biner, dan kategori).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df_gower</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+<span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat ringkasan tipe data dalam bentuk tabel</span>
+<span class="n">type_summary</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">type_summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Kolom&#39;</span><span class="p">,</span> <span class="s1">&#39;Tipe Data&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabel Tipe Data df_clean:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">type_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tabel Tipe Data df_clean:
+      Kolom Tipe Data
+0  Survived     int64
+1    Pclass     int64
+2       Sex       str
+3       Age   float64
+4     SibSp     int64
+5     Parch     int64
+6      Fare   float64
+7  Embarked       str
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Menghitung Jarak Campuran (Gower’s Similarity Coefficient)</strong><br>
+Untuk data campuran, kita menggunakan Gower’s Similarity Coefficient yang menghitung jarak tiap fitur berdasarkan tipenya, lalu merata-ratakannya. Rumusnya adalah:
+$<span class="math notranslate nohighlight">\(d(i, j) = \frac{\sum_{f=1}^{p} \delta_{ij}^{(f)} d_{ij}^{(f)}}{\sum_{f=1}^{p} \delta_{ij}^{(f)}}\)</span>$</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distance_matrix</span> <span class="o">=</span> <span class="n">gower</span><span class="o">.</span><span class="n">gower_matrix</span><span class="p">(</span><span class="n">df_gower</span><span class="p">)</span>
+<span class="c1"># 5. Buat DataFrame Matriks Jarak</span>
+<span class="n">dist_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">distance_matrix</span><span class="p">,</span> 
+    <span class="n">index</span><span class="o">=</span><span class="n">df_gower</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">df_gower</span><span class="o">.</span><span class="n">index</span>
+<span class="p">)</span>
+
+<span class="c1"># Menampilkan 5x5 pertama dari matriks</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matriks Jarak (5 Baris Pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dist_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriks Jarak (5 Baris Pertama):
+       0      1      2      3      4
+0  0.000  0.750  0.625  0.625  0.375
+1  0.750  0.000  0.625  0.375  0.875
+2  0.625  0.625  0.000  0.500  0.500
+3  0.625  0.375  0.500  0.000  0.625
+4  0.375  0.875  0.500  0.625  0.000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1398,6 +2115,16 @@ $<span class="math notranslate nohighlight">\(d(x,y) = |z_{i1} - z_{i2}|\)</span
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menghitung-jarak">Implementasi Menghitung Jarak</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-iris">Dataset IRIS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-iris">Tabel Klasifikasi Tipe Data Dataset Iris</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-dataset">Ringkasan Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-titanic-campuran">Dataset Titanic (Campuran)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-titanic">Tabel Klasifikasi Tipe Data Dataset Titanic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-statistik">Ringkasan Statistik</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-numerik">Tipe Numerik</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Euclidean Distance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Manhattan Distance</strong></a></li>
@@ -1414,6 +2141,7 @@ $<span class="math notranslate nohighlight">\(d(x,y) = |z_{i1} - z_{i2}|\)</span
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-ordinal">Tipe Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-campuran">Tipe Campuran</a></li>
 </ul>
 </li>
 </ul>
