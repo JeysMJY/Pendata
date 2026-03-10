@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Mengukur Jarak &#8212; Catatan Mata Kuliah Penambangan Data</title>
+    <title>Mengukur Jarak Data &#8212; Catatan Mata Kuliah Penambangan Data</title>
   
   
   
@@ -57,12 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'mengukur-jarak';</script>
     <link rel="icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Preparation" href="data-preparation.html" />
-    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,6 +125,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -180,10 +182,15 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="business-understanding.html">Business Understanding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mengukur Jarak</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="jarak-data.html">Mengukur Jarak</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="data-preparation.html">Data Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modeling.html">Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a></li>
@@ -359,7 +366,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -370,11 +379,80 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Mengukur Jarak</h1>
+    <h1>Mengukur Jarak Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mengukur Jarak Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-data-tipe-numerik">Mengukur Jarak Data (Tipe Numerik)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minkowski-distance">1. Minkowski Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manhattan-distance">2. Manhattan Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">3. Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#average-distance">4. Average Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-euclidean-distance">5. Weighted Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chord-distance">6. Chord Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mahalanobis-distance">7. Mahalanobis Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">8. Cosine Similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pearson-correlation">9. Pearson Correlation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-atribut-binary">Mengukur Jarak Atribut Binary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simetris-biner-symmetric-binary">1. Simetris Biner (Symmetric Binary)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetris-biner-asymmetric-binary">2. Asimetris Biner (Asymmetric Binary)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-tipe-categorical-nominal">Mengukur Jarak Tipe Categorical (Nominal)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-metric-om">1. Overlay Metric (OM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-difference-metric-vdm">2. Value Difference Metric (VDM)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-tipe-ordinal">Mengukur Jarak Tipe Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-tipe-campuran-mixed-types">Mengukur Jarak Tipe Campuran (Mixed Types)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menghitung-jarak">Implementasi Menghitung Jarak</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-iris">Dataset IRIS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-iris">Tabel Klasifikasi Tipe Data Dataset Iris</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-dataset">Ringkasan Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-titanic-campuran">Dataset Titanic (Campuran)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-titanic">Tabel Klasifikasi Tipe Data Dataset Titanic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-statistik">Ringkasan Statistik</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-numerik">Tipe Numerik</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Manhattan Distance</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-binary">Tipe Binary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biner-simetris-smc">Biner Simetris (SMC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biner-asimetris-jaccard">Biner Asimetris (Jaccard)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biner-campuran-mixed-attributes">Biner Campuran (Mixed Attributes)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-categorical">Tipe Categorical</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Overlay Metric (OM)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-ordinal">Tipe Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-campuran">Tipe Campuran</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#numerik">Numerik</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-categorical">Binary &amp; Categorical</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-ordinal">Tipe Data Ordinal</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-gower-distance">Konsep Gower Distance</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -384,8 +462,1888 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="mengukur-jarak">
-<h1>Mengukur Jarak<a class="headerlink" href="#mengukur-jarak" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="mengukur-jarak-data">
+<h1>Mengukur Jarak Data<a class="headerlink" href="#mengukur-jarak-data" title="Link to this heading">#</a></h1>
+<p>Mengukuran jarak data (Similarity dan Dissimilarity) adalah proses untuk menentukan seberapa mirip atau berbeda dua data atau lebih. Jarak ini dapat digunakan dalam berbagai algoritma pembelajaran mesin, seperti clustering, klasifikasi, dan regresi. Dalam mengukur jarak data terdapat beberapa tipe atribut seperti:</p>
+<ul class="simple">
+<li><p>Numerik</p></li>
+<li><p>Binary</p></li>
+<li><p>Categorical</p></li>
+<li><p>Ordinal</p></li>
+</ul>
+<section id="mengukur-jarak-data-tipe-numerik">
+<h2>Mengukur Jarak Data (Tipe Numerik)<a class="headerlink" href="#mengukur-jarak-data-tipe-numerik" title="Link to this heading">#</a></h2>
+<p>Salah satu tantangan dalam era ini adalah database yang memiliki banyak tipe data. Mengukur jarak adalah komponen utama dalam algoritma <em>clustering</em> berbasis jarak. Algoritma <em>partitioning</em> seperti <strong>K-Means</strong>, <strong>K-Medoids</strong>, <strong>Fuzzy C-Means</strong>, dan <strong>Rough Clustering</strong> sangat bergantung pada perhitungan jarak untuk melakukan pengelompokkan data.</p>
+<p>Misalkan terdapat dua buah vektor <span class="math notranslate nohighlight">\(v_1\)</span> dan <span class="math notranslate nohighlight">\(v_2\)</span> dalam ruang dimensi <span class="math notranslate nohighlight">\(n\)</span>:
+<span class="math notranslate nohighlight">\(v_1 = (x_1, x_2, \dots, x_n)\)</span>
+<span class="math notranslate nohighlight">\(v_2 = (y_1, y_2, \dots, y_n)\)</span></p>
+<p>Berikut adalah beberapa ukuran jarak untuk data tipe numerik:</p>
+<section id="minkowski-distance">
+<h3>1. Minkowski Distance<a class="headerlink" href="#minkowski-distance" title="Link to this heading">#</a></h3>
+<p>Merupakan generalisasi dari jarak Euclidean dan Manhattan.
+$<span class="math notranslate nohighlight">\(d_{min} = \left( \sum_{i=1}^{n} |x_i - y_i|^m \right)^{1/m}, m \geq 1\)</span>$</p>
+</section>
+<section id="manhattan-distance">
+<h3>2. Manhattan Distance<a class="headerlink" href="#manhattan-distance" title="Link to this heading">#</a></h3>
+<p>Merupakan kasus khusus dari Minkowski Distance pada <span class="math notranslate nohighlight">\(m = 1\)</span>. Jarak ini sensitif terhadap <em>outlier</em>.
+$<span class="math notranslate nohighlight">\(d_{man} = \sum_{i=1}^{n} |x_i - y_i|\)</span>$</p>
+</section>
+<section id="euclidean-distance">
+<h3>3. Euclidean Distance<a class="headerlink" href="#euclidean-distance" title="Link to this heading">#</a></h3>
+<p>Jarak yang paling terkenal untuk data numerik (kasus khusus Minkowski pada <span class="math notranslate nohighlight">\(m = 2\)</span>). Sangat umum digunakan namun memiliki kelemahan jika fitur memiliki skala yang berbeda jauh (perlu normalisasi).
+$<span class="math notranslate nohighlight">\(d_{euc} = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}\)</span>$</p>
+</section>
+<section id="average-distance">
+<h3>4. Average Distance<a class="headerlink" href="#average-distance" title="Link to this heading">#</a></h3>
+<p>Versi modifikasi dari Euclidean untuk memperbaiki hasil dengan menghitung rata-rata.
+$<span class="math notranslate nohighlight">\(d_{ave} = \left( \frac{1}{n} \sum_{i=1}^{n} (x_i - y_i)^2 \right)^{1/2}\)</span>$</p>
+</section>
+<section id="weighted-euclidean-distance">
+<h3>5. Weighted Euclidean Distance<a class="headerlink" href="#weighted-euclidean-distance" title="Link to this heading">#</a></h3>
+<p>Digunakan jika setiap atribut memiliki tingkat kepentingan (bobot) yang berbeda.
+$<span class="math notranslate nohighlight">\(d_{we} = \left( \sum_{i=1}^{n} w_i (x_i - y_i)^2 \right)^{1/2}\)</span>$</p>
+</section>
+<section id="chord-distance">
+<h3>6. Chord Distance<a class="headerlink" href="#chord-distance" title="Link to this heading">#</a></h3>
+<p>Modifikasi Euclidean untuk mengatasi kekurangan pada data yang tidak dinormalisasi.
+$<span class="math notranslate nohighlight">\(d_{chord} = \left( 2 - 2 \frac{\sum_{i=1}^{n} x_i y_i}{\|x\|_2 \|y\|_2} \right)^{1/2}\)</span>$</p>
+</section>
+<section id="mahalanobis-distance">
+<h3>7. Mahalanobis Distance<a class="headerlink" href="#mahalanobis-distance" title="Link to this heading">#</a></h3>
+<p>Mengukur jarak yang memperhitungkan korelasi antar fitur menggunakan matriks kovarians (<span class="math notranslate nohighlight">\(S\)</span>).
+$<span class="math notranslate nohighlight">\(d_{mah} = \sqrt{(x - y) S^{-1} (x - y)^T}\)</span>$</p>
+</section>
+<section id="cosine-similarity">
+<h3>8. Cosine Similarity<a class="headerlink" href="#cosine-similarity" title="Link to this heading">#</a></h3>
+<p>Banyak digunakan untuk kemiripan dokumen (teks).
+$<span class="math notranslate nohighlight">\(Cosine(x, y) = \frac{\sum_{i=1}^{n} x_i y_i}{\|x\|_2 \|y\|_2}\)</span>$</p>
+</section>
+<section id="pearson-correlation">
+<h3>9. Pearson Correlation<a class="headerlink" href="#pearson-correlation" title="Link to this heading">#</a></h3>
+<p>Menghitung kemiripan antara dua pola (sering digunakan pada ekspresi gen).
+$<span class="math notranslate nohighlight">\(Pearson(x, y) = \frac{\sum_{i=1}^{n} (x_i - \mu_x)(y_i - \mu_y)}{\sqrt{\sum_{i=1}^{n} (x_i - \mu_x)^2} \sqrt{\sum_{i=1}^{n} (y_i - \mu_y)^2}}\)</span>$</p>
+</section>
+</section>
+<section id="mengukur-jarak-atribut-binary">
+<h2>Mengukur Jarak Atribut Binary<a class="headerlink" href="#mengukur-jarak-atribut-binary" title="Link to this heading">#</a></h2>
+<p>Atribut biner hanya memiliki dua status (0 dan 1). Perhitungannya menggunakan tabel kontingensi <span class="math notranslate nohighlight">\(2 \times 2\)</span>.
+Misalkan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(q\)</span>: jumlah atribut yang bernilai 1 untuk kedua objek.</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span>: jumlah atribut yang bernilai 1 untuk objek <span class="math notranslate nohighlight">\(i\)</span> tapi 0 untuk objek <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span>: jumlah atribut yang bernilai 0 untuk objek <span class="math notranslate nohighlight">\(i\)</span> tapi 1 untuk objek <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span>: jumlah atribut yang bernilai 0 untuk kedua objek.</p></li>
+</ul>
+<section id="simetris-biner-symmetric-binary">
+<h3>1. Simetris Biner (Symmetric Binary)<a class="headerlink" href="#simetris-biner-symmetric-binary" title="Link to this heading">#</a></h3>
+<p>Digunakan jika nilai 0 dan 1 dianggap sama pentingnya (misal: jenis kelamin).
+$<span class="math notranslate nohighlight">\(d(i, j) = \frac{r + s}{q + r + s + t}\)</span>$</p>
+</section>
+<section id="asimetris-biner-asymmetric-binary">
+<h3>2. Asimetris Biner (Asymmetric Binary)<a class="headerlink" href="#asimetris-biner-asymmetric-binary" title="Link to this heading">#</a></h3>
+<p>Digunakan jika hasil positif (1) lebih signifikan (misal: hasil tes penyakit). Nilai <span class="math notranslate nohighlight">\(t\)</span> diabaikan.
+$<span class="math notranslate nohighlight">\(d(i, j) = \frac{r + s}{q + r + s}\)</span><span class="math notranslate nohighlight">\(
+*Persamaan kemiripannya disebut **Jaccard Coefficient**:*
+\)</span><span class="math notranslate nohighlight">\(sim(i, j) = \frac{q}{q + r + s}\)</span>$</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mengukur-jarak-tipe-categorical-nominal">
+<h2>Mengukur Jarak Tipe Categorical (Nominal)<a class="headerlink" href="#mengukur-jarak-tipe-categorical-nominal" title="Link to this heading">#</a></h2>
+<p>Digunakan untuk atribut yang tidak memiliki urutan (misal: warna, profesi).</p>
+<section id="overlay-metric-om">
+<h3>1. Overlay Metric (OM)<a class="headerlink" href="#overlay-metric-om" title="Link to this heading">#</a></h3>
+<p>Ukuran paling sederhana, memberikan nilai 0 jika sama dan 1 jika berbeda.
+$<span class="math notranslate nohighlight">\(d(x, y) = \sum_{i=1}^{n} \delta(a_i(x), a_i(y))\)</span><span class="math notranslate nohighlight">\(
+Di mana \)</span>\delta(a_i(x), a_i(y)) = 0<span class="math notranslate nohighlight">\( jika nilai atribut sama, dan \)</span>1$ jika berbeda.</p>
+</section>
+<section id="value-difference-metric-vdm">
+<h3>2. Value Difference Metric (VDM)<a class="headerlink" href="#value-difference-metric-vdm" title="Link to this heading">#</a></h3>
+<p>Mengasumsikan dua nilai atribut lebih dekat jika memiliki klasifikasi kelas (<span class="math notranslate nohighlight">\(C\)</span>) yang sama.
+$<span class="math notranslate nohighlight">\(d(x, y) = \sum_{i=1}^{n} \sum_{c=1}^{C} |P(c|a_i(x)) - P(c|a_i(y))|\)</span>$</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mengukur-jarak-tipe-ordinal">
+<h2>Mengukur Jarak Tipe Ordinal<a class="headerlink" href="#mengukur-jarak-tipe-ordinal" title="Link to this heading">#</a></h2>
+<p>Atribut ordinal memiliki urutan (misal: kecil, sedang, besar). Prosedur penghitungannya adalah:</p>
+<ol class="arabic simple">
+<li><p>Ganti nilai atribut dengan peringkatnya (<span class="math notranslate nohighlight">\(r_{if} \in \{1, \dots, M_f\}\)</span>).</p></li>
+<li><p>Lakukan normalisasi nilai ke rentang <span class="math notranslate nohighlight">\([0, 1]\)</span> agar memiliki bobot yang sama dengan tipe data lain:
+$<span class="math notranslate nohighlight">\(z_{if} = \frac{r_{if} - 1}{M_f - 1}\)</span>$</p></li>
+<li><p>Hitung jarak menggunakan ukuran numerik seperti <strong>Euclidean</strong> atau <strong>Manhattan</strong> pada nilai <span class="math notranslate nohighlight">\(z_{if}\)</span> tersebut.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="mengukur-jarak-tipe-campuran-mixed-types">
+<h2>Mengukur Jarak Tipe Campuran (Mixed Types)<a class="headerlink" href="#mengukur-jarak-tipe-campuran-mixed-types" title="Link to this heading">#</a></h2>
+<p>Untuk database yang memiliki berbagai tipe data (numerik, biner, nominal, ordinal), digunakan <strong>Gower’s Similarity Coefficient</strong>:</p>
+<div class="math notranslate nohighlight">
+\[d(i, j) = \frac{\sum_{f=1}^{p} \delta_{ij}^{(f)} d_{ij}^{(f)}}{\sum_{f=1}^{p} \delta_{ij}^{(f)}}\]</div>
+<p>Keterangan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\delta_{ij}^{(f)}\)</span> adalah indikator (bernilai 0 jika data pada atribut <span class="math notranslate nohighlight">\(f\)</span> hilang, atau jika atribut bersifat asimetris biner dan keduanya bernilai 0; selain itu bernilai 1).</p></li>
+<li><p><span class="math notranslate nohighlight">\(d_{ij}^{(f)}\)</span> adalah kontribusi jarak atribut ke-<span class="math notranslate nohighlight">\(f\)</span>:</p>
+<ul>
+<li><p>Jika <strong>Numerik/Ordinal</strong>: <span class="math notranslate nohighlight">\(d_{ij}^{(f)} = \frac{|x_{if} - x_{jf}|}{R_f}\)</span> (di mana <span class="math notranslate nohighlight">\(R_f\)</span> adalah rentang nilai maksimum-minimum).</p></li>
+<li><p>Jika <strong>Biner/Nominal</strong>: <span class="math notranslate nohighlight">\(d_{ij}^{(f)} = 0\)</span> jika <span class="math notranslate nohighlight">\(x_{if} = x_{jf}\)</span>, dan <span class="math notranslate nohighlight">\(1\)</span> jika sebaliknya.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="implementasi-menghitung-jarak">
+<h1>Implementasi Menghitung Jarak<a class="headerlink" href="#implementasi-menghitung-jarak" title="Link to this heading">#</a></h1>
+<section id="dataset-iris">
+<h2>Dataset IRIS<a class="headerlink" href="#dataset-iris" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/IRIS.csv&#39;</span><span class="p">)</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+RangeIndex: 150 entries, 0 to 149
+Data columns (total 5 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   sepal_length  150 non-null    float64
+ 1   sepal_width   150 non-null    float64
+ 2   petal_length  150 non-null    float64
+ 3   petal_width   150 non-null    float64
+ 4   species       150 non-null    str    
+dtypes: float64(4), str(1)
+memory usage: 6.0 KB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tabel-klasifikasi-tipe-data-dataset-iris">
+<h3>Tabel Klasifikasi Tipe Data Dataset Iris<a class="headerlink" href="#tabel-klasifikasi-tipe-data-dataset-iris" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Nama Kolom</p></th>
+<th class="head text-left"><p>Jenis Variabel (Statistik)</p></th>
+<th class="head text-left"><p>Tipe Data (Pandas)</p></th>
+<th class="head text-left"><p>Deskripsi Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>sepal_length</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Panjang kelopak bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>sepal_width</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Lebar kelopak bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>petal_length</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Panjang mahkota bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>petal_width</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Lebar mahkota bunga dalam satuan cm.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>species</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Jenis spesies bunga (Setosa, Versicolor, Virginica).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ringkasan-dataset">
+<h3>Ringkasan Dataset<a class="headerlink" href="#ringkasan-dataset" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Total Sampel:</strong> 150 data.</p></li>
+<li><p><strong>Kualitas Data:</strong> Sangat baik (100% Non-Null), tidak ditemukan data kosong pada semua kolom.</p></li>
+<li><p><strong>Karakteristik:</strong> Dominan numerik, sangat cocok untuk algoritma perhitungan jarak seperti <em>Euclidean</em> atau <em>Manhattan</em>.</p></li>
+</ul>
+</section>
+</section>
+<section id="dataset-titanic-campuran">
+<h2>Dataset Titanic (Campuran)<a class="headerlink" href="#dataset-titanic-campuran" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">ttc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="n">ttc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ttc</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    str    
+ 4   Sex          891 non-null    str    
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    str    
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    str    
+ 11  Embarked     889 non-null    str    
+dtypes: float64(2), int64(5), str(5)
+memory usage: 83.7 KB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tabel-klasifikasi-tipe-data-dataset-titanic">
+<h3>Tabel Klasifikasi Tipe Data Dataset Titanic<a class="headerlink" href="#tabel-klasifikasi-tipe-data-dataset-titanic" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Nama Kolom</p></th>
+<th class="head text-left"><p>Jenis Variabel (Statistik)</p></th>
+<th class="head text-left"><p>Tipe Data (Pandas)</p></th>
+<th class="head text-left"><p>Deskripsi Data</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>PassengerId</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Diskrit)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Identitas unik/ID setiap penumpang.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Survived</strong></p></td>
+<td class="text-left"><p><strong>Binary</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Status keselamatan: <strong>0</strong> (Meninggal), <strong>1</strong> (Selamat).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Pclass</strong></p></td>
+<td class="text-left"><p><strong>Ordinal</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Kelas tiket: <strong>1</strong> (Atas), <strong>2</strong> (Menengah), <strong>3</strong> (Bawah).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Name</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Nama lengkap penumpang.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Sex</strong></p></td>
+<td class="text-left"><p><strong>Binary</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Jenis kelamin: <em>male</em> atau <em>female</em>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Age</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Usia penumpang (memiliki nilai desimal).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>SibSp</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Diskrit)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Jumlah saudara/pasangan di kapal.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Parch</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Diskrit)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Jumlah orang tua/anak di kapal.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Ticket</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Nomor atau kode tiket penumpang.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Fare</strong></p></td>
+<td class="text-left"><p><strong>Numerik (Kontinu)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p>Harga/tarif tiket yang dibayar.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Cabin</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Nomor kabin (banyak nilai kosong/NaN).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Embarked</strong></p></td>
+<td class="text-left"><p><strong>Kategorikal (Nominal)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">object</span></code> / <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-left"><p>Pelabuhan keberangkatan: <strong>C</strong>, <strong>Q</strong>, atau <strong>S</strong>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Sex_Binary</strong></p></td>
+<td class="text-left"><p><strong>Binary (Numerik)</strong></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-left"><p>Hasil transformasi jenis kelamin menjadi angka (0/1).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ringkasan-statistik">
+<h3>Ringkasan Statistik<a class="headerlink" href="#ringkasan-statistik" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Total Data:</strong> 891 baris.</p></li>
+<li><p><strong>Data Campuran:</strong> Terdiri dari angka (Numerik) dan teks (Kategorikal).</p></li>
+<li><p><strong>Missing Values:</strong> Terdapat data kosong pada kolom <code class="docutils literal notranslate"><span class="pre">Age</span></code>, <code class="docutils literal notranslate"><span class="pre">Cabin</span></code>, dan <code class="docutils literal notranslate"><span class="pre">Embarked</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="tipe-numerik">
+<h2>Tipe Numerik<a class="headerlink" href="#tipe-numerik" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Import Library</strong><br>
+Langkah pertama adalah menyiapkan alat-alat yang diperlukan. Kita menggunakan pandas untuk olah data, numpy dan scipy untuk perhitungan saintifik, serta math untuk fungsi matematika dasar.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Memuat Dataset</strong><br>
+Di sini kita membaca file IRIS.csv. Pastikan file tersebut berada di folder yang sama dengan file notebook Anda agar data dapat diproses oleh sistem.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/IRIS.csv&#39;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Memilih Baris dan Kolom Pembanding</strong><br>Setelah dataset berhasil dimuat, langkah selanjutnya adalah memilih data yang akan dihitung jaraknya. Kita mengambil dua baris pertama sebagai sampel (sebagai titik <span class="math notranslate nohighlight">\(A\)</span> dan titik <span class="math notranslate nohighlight">\(B\)</span>). Karena kolom ke-5 pada dataset Iris biasanya berisi label teks (spesies), kita hanya melakukan slicing pada kolom indeks 0 sampai 3 agar hanya fitur numerik yang diproses.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengambil dua baris pertama (baris ke-0 dan baris ke-1)</span>
+<span class="n">data_pertama</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">data_kedua</span>   <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">num_pertama</span> <span class="o">=</span> <span class="n">data_pertama</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">num_kedua</span>   <span class="o">=</span> <span class="n">data_kedua</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vektor 1 (Fitur Numerik) :&quot;</span><span class="p">,</span> <span class="n">num_pertama</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vektor 2 (Fitur Numerik) :&quot;</span><span class="p">,</span> <span class="n">num_kedua</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vektor 1 (Fitur Numerik) : [5.1 3.5 1.4 0.2]
+Vektor 2 (Fitur Numerik) : [4.9 3.  1.4 0.2]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h3>Euclidean Distance<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><strong>Euclidean Distance</strong> mengukur jarak garis lurus antara dua titik dalam ruang <span class="math notranslate nohighlight">\(n\)</span>-dimensi. Rumus matematisnya didefinisikan sebagai:</p>
+<div class="math notranslate nohighlight">
+\[d_{euc} = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}\]</div>
+<p>Berikut adalah implementasi menggunakan library <strong>Scipy</strong>, <strong>Numpy</strong>, perhitungan <strong>manual</strong> serta Tools Orange Data Mining:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Menggunakan Scipy</span>
+<span class="n">euc_scipy</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">euclidean</span><span class="p">(</span><span class="n">num_pertama</span><span class="p">,</span> <span class="n">num_kedua</span><span class="p">)</span>
+
+<span class="c1"># 2. Menggunakan Numpy</span>
+<span class="n">euc_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">num_pertama</span> <span class="o">-</span> <span class="n">num_kedua</span><span class="p">)</span>
+
+<span class="c1"># 3. Menggunakan Manual</span>
+<span class="n">euc_manual</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">num_pertama</span><span class="p">,</span> <span class="n">num_kedua</span><span class="p">)))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HASIL EUCLIDEAN DISTANCE&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scipy  : </span><span class="si">{</span><span class="n">euc_scipy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy  : </span><span class="si">{</span><span class="n">euc_numpy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Manual : </span><span class="si">{</span><span class="n">euc_manual</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HASIL EUCLIDEAN DISTANCE
+Scipy  : 0.539
+Numpy  : 0.539
+Manual : 0.539
+</pre></div>
+</div>
+</div>
+</div>
+<p>Berikut adalah hasil dari Orange Data Mining:</p>
+<p><img alt="image.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABlCAYAAACGLCeXAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAW/SURBVHhe7Z0/aCpZFId/s7WJRRpJUolGDIQUgQUFm3QTUqTRctlK2WZXi8A2qVKmULZZtFq2TJoUwenSCAoPUoTAC+qQKk9shBjtZwuv43ifZnWMOve884HNuddk8Lt/h3tmtLe3NwsMWX6SAwwtWDBxWDBxWDBxWDBxWDBxtGnbpL/+/gcXf/4hhxnFWEkPbrVacsjzULnmlQhm1gcLJg4LJg4LJg4LJg4LJg4LJg4LJg4LJo66go0MNE2zP/GCKdfwLEZmcM0ZQy75fNQUbGSgnZTGQrVceCU/2EKYBcQ1DdKlLxUFBZsoXA5+oVi+CcuyUE4PSkqXBXi2HxsZaOEcanJ8yagn2LzDdQ0AYkidhgAA+pkwXLvGnWcNA0AM+WYZ4mpXgnqCm8+iFxwgMvALhKOIjVXyIHoRllVFdnjNK0I9wcxcsGDiqCfYHo6fUB/Ot5OGbQZQUnAoggMAQA3XYkVl3Ip9RyyKsLMuo6Bg6DjPD/pwLReG5thXpi+y4A48joKCgVC2iqaQPCRdtlDUx0KMqoIhJFuWZX/UkaujuMJrVlYwMxssmDgsmDgsmDgsmDgsmDgsmDgsmDgrSR9ttVrY3t6Ww56lXq8jEokghZRc5Fku65eIRCJymHswdVgwcVgwcVgwcVgwcVgwcVgwcVgwcViwC9qZG9xo4hNvoC9XsGnjYVhvYv0+GnFn+QPaY98HYDw4yu/RmDNzw71gkUhlZ/h5PvPrc+gX7lF5OoRuJZG0kkgcPMLIfKfFQRAJUTdpJZGs7sE3LDJb6KV0u0zPd1FxNgCzgfuTLg6b4rtlPx7D80l2J9gsIC4nUpVOlErhdEcb9Rxw+O9IUuD8EFulr5N/dPMdXTnmJLSHo6ytG77TXWzVXtESf6t99Qjkf8be8KiofoREuoPXu+ljhowrwcaVkJsuw7Is+4RjLXcF0v3YfEcXfmw6z+aGtrEb66DXdMQWYvj3+3h/AvyRUQMAAF90C53npQo2MDxnnj4bHAsMnaZEtkEJt5QNN3voxDZGQ+xMvKDy0RzrYNBjIwgAAHzYPAC69Qkyn94/mPfHmV+wWccTACCG6DCNwM42+HGZKCK0h2PH/JtIv6AiSe4X7u1F1LezJI4dQ3bgLIhO7sto+Dcb+JLr2OWzML9gZiLyUDqJQDGBIF7wzTHK+bLHdgPYuZV6uX4EPQ88hsUIEO5hvxwEDjZnHkVY8DyEN7BV6808PH6PDxsfJDIHioNe/rUw+g/OBpC0juCrd7EVnVWvG8GO5K/n4cJi0rBNkdAm/Oji3bliNlt4rQWxM1OWQh+9hZ7hMFjF754uUzDCiIpWWBIrKvPu+gdJ3wxgJ93B4y+jver4wmhw4+Je9MB+4WFs+9TOVPASO0RENAa5HMYDKqUg9h3z8Ig+GvEKXtL7o23TDLgQHEL2YvjUkxNomoZwbqA3lj/HTA1ZYQJFcXNDLIwqSIwtjMbpjuZPUdd5o8MXccyv2g1uToCEdSQai7jRYa/ADbymdCSLdulMuD+TJT3KKJZvojrlARR8Jmv5fP6ZLL04lt03TS6zXtwLZpSABROHBROHBROHBROHBRPH/T54DlqtFnq9nhxmPplJ++CVCVbxRodKTLvmlQnObmflsGeZdlfIy0wTzHMwcVgwcVgwcVgwcVgwcVgwcVgwcVgwcdYuWKVMPRVZWLBZiLt+d6BqmXoqsoBgAxnHicr5US9TT0XcCTYLiGsnWOgdiwpm6qmIO8GCdLkJ6d0Ys6Ngpp6KuBMcyqK6xJdKTBThgUw9FXEneMnIQ+kk1pGppyLrE6xgpp6KrE+wgpl6KrI+wQpm6qnIGgWrl6mnIgueyTJRiIeRq/1/diGfyVouSzqTFUK2ytmFXmZBwYzXYcHEYcHEYcHEYcHEYcHEWXAfPBucXbgaJu2DVyZYpexCSnwo+PfffpXDrvH7/XKIWQE8BxOHBRPnPxONR1TxCeDFAAAAAElFTkSuQmCC" /></p>
+</section>
+<section id="id2">
+<h3><strong>Manhattan Distance</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><strong>Manhattan Distance</strong> (sering disebut <em>City Block Distance</em>) mengukur jarak dengan menjumlahkan nilai absolut dari selisih setiap koordinatnya. Rumus matematisnya adalah:</p>
+<div class="math notranslate nohighlight">
+\[d_{man} = \sum_{i=1}^{n} |x_i - y_i|\]</div>
+<p>Berikut adalah implementasi menggunakan library <strong>Scipy</strong>, <strong>Numpy</strong>, perhitungan <strong>manual</strong> serta Tools Orange Data Mining:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Menggunakan Scipy</span>
+<span class="n">man_scipy</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">cityblock</span><span class="p">(</span><span class="n">num_pertama</span><span class="p">,</span> <span class="n">num_kedua</span><span class="p">)</span>
+
+<span class="c1"># 2. Menggunakan Numpy</span>
+<span class="n">man_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">num_pertama</span> <span class="o">-</span> <span class="n">num_kedua</span><span class="p">))</span>
+
+<span class="c1"># 3. Menggunakan Manual</span>
+<span class="n">man_manual</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">num_pertama</span><span class="p">,</span> <span class="n">num_kedua</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HASIL MANHATTAN DISTANCE&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scipy  : </span><span class="si">{</span><span class="n">man_scipy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numpy  : </span><span class="si">{</span><span class="n">man_numpy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Manual : </span><span class="si">{</span><span class="n">man_manual</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HASIL MANHATTAN DISTANCE
+Scipy  : 0.700
+Numpy  : 0.700
+Manual : 0.700
+</pre></div>
+</div>
+</div>
+</div>
+<p>Berikut adalah hasil dari Orange Data Mining:</p>
+<p><img alt="image.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABoCAYAAAApZXS9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVoSURBVHhe7Z09TCpZGIbf2VqloCFoRUCCiaGwGhKb20EsbLS82QqyzV0oTLaxsrSAbLORarOlNhYGOhsTp7IwJhqYiZV3QkOiQj9bzBl+zgWHAUbmk+9JpvB8J2Yyz3zzQ84LyuvrqwWGLL/JAwwtWCBxWCBxWCBxWCBxWCBxWCBxWCBxWCBxlFGfxPz9z784/utPeZgJIL53oGma8lDgobTPvgtk/IUFEocFEocFEocFEocFEocFEocFEocFEoemwHoBiqL0tkzFkGcElnrB3udCXa5MBz2B9QKUXHVoSCsl5nZAfMOoIKMokHZ9ZogJNFA5sY+AWtZhWRZqebtSPakgsH1YL0BJlKDJ43OAlkDjCucaAKg43IsDALL7wqB2jqvAGgQAFWW9BrG3c4OWQP1JnMXbSNr+gEQK6tCkAJI9g2Xdoujs8xyhJZD5BRZIHFoCe5fLBzSc+92oy+oSQUtgPIltAICGc/HEUr8Uz+VqConBuUsCLYHI4qhs96BWSkAZeK/KHxexhA1ITSAQL95CFxId8jULZ9mhoaWBnEAIiZZl9TY68rI4m/M+kxTI9GGBxGGBxGGBxGGBxGGBxGGBxGGBxPE9XmaaJqLRqDwcWBqNBpLJJA5xKJcCCXcgcVggcVggcVggcVggcVggcVggcVggcVigR1qFC1woYss00ZUnAABauHPmyFuh1Z9mNHE9ULuT8x1u9akFiqBGLyEU+GTJfOhWrnHzkEbWOsCBdYDd7XvUB4X0iGBHzOlvu4ghjPRRRMxp4S5xj1BN1PU03nLXaPbiAW51G+8CjQoyclCjmiMV8ZqOFholIP3fJlbESOQojXD18ZeDOopu5RHP+S1siqVz9t+72HHWxsQ3sZVv4/7UPiHc6g6eBdZPhbx8DZZl9VaIaaVTfOk+NN7xhhDWBtcuxqPYUNvo6ANjIxHye90HdJ/aCKecU8Emsh8DHt7RnaDu4FFgHc462vy+fWrE9w7FaukqLr+yQb2Dtrra6z5P1H/iWd1AtCe/i/cHIJQc99/c6n28CTQaeAAAqEg5y6B7q6WXl7fG6EcZmy6aJ8+IHfcvvR+idcY8GAmkujeBzEg+7BTDxIsWw/qk60Ddulyqs8BJSawi7NYdI+hevaCdX0f/7gcAK1jb/qhz3ep9vAkcCJc8OTfuUZfVr0h8DSG84X3widO1u7owz9uI7Q/rA4CVVBjtp2FBrctnhA+jWJmg7uBNIBJIiVhCVTyxGFfnSxLvimA938b99/7Le+v0HignRXd10cxc4LoycNANEy9aGKsjTuyVvQ2Eqzf9l3OjicdqDFtFW49b3cGjwDiKx863CuSgKAoSJVufWj7C2BPxixA5Ey/v4pORG+zim3RAh9A7aA89fQ4Q38Q3PY23nPikJfGCDX2nf6l1qwumWxMjfdWHWtZxOyYAzmti/MVjBwqyZ0PpoHHyGP+ZTiATGFggcVggcVggcVggcVggcaZ7D/SAaZrodDryMDMnPkUgxRd5KnyKwGK0KA8HlpPGCSmBfA8kDgskDgskDgskDgskDgskDgskDgskzkIFBi3pQ5GZBBqVzNS/XRTEpA9FphRYR2FgRZp3gpn0oYh3gUYFGSWHmX7DKaBJH4p4FyjI13RI3z0+OQFN+lDEu8B4Ebdz/NJumY/zAP4mfSjiXaDPfNgprlkECbcud6sTYDECA5r0ochiBAY06UORxQgMaNKHIgsSGMykD0VmWBNjoJJJoKS5p5N4TYx/zNCBcRRvOZ20aGYQyAQBFkgcFkgcFkgcFkgcFkicGd4DJ4PTSf7yKQIppZOoMVbgjz9+l4enJhQKyUPMnOB7IHFYIHH+B580FmrMESMvAAAAAElFTkSuQmCC" /></p>
+</section>
+</section>
+<section id="tipe-binary">
+<h2>Tipe Binary<a class="headerlink" href="#tipe-binary" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Import Library</strong><br>
+Langkah awal adalah memuat pustaka yang dibutuhkan. Selain pustaka standar, kita membutuhkan scipy untuk fungsi jarak biner bawaan.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">distance</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Memuat Dataset Titanic</strong><br>
+Kita akan menggunakan dataset Titanic. Dataset ini sangat cocok karena memiliki kombinasi fitur biner, kategori, dan numerik.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca dataset Titanic dari sumber publik</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan 5 data teratas</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Preprocessing dan Pemilihan Kolom</strong><br>
+Agar data dapat dihitung jaraknya, kita perlu mengubah kolom kategori menjadi biner dan membersihkan nilai yang kosong (missing values).</p></li>
+</ol>
+<p>Pada tahap ini, kita melakukan:</p>
+<ol class="arabic simple">
+<li><p>Mengubah fitur <strong>Sex</strong> menjadi biner (0 untuk female, 1 untuk male).</p></li>
+<li><p>Memilih kolom <strong>Survived</strong> sebagai fitur biner asimetris.</p></li>
+<li><p>Memilih kolom <strong>Pclass</strong> dan <strong>Age</strong> untuk fitur campuran.</p></li>
+<li><p>Menghapus baris dengan nilai kosong agar perhitungan tidak error.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mapping data kategori ke biner</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex_Binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+<span class="c1"># Membersihkan data</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex_Binary&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mengambil dua baris sebagai sampel pembanding</span>
+<span class="n">data_1</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">data_2</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Pembanding 1:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">data_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data Pembanding 2:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">data_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Pembanding 1:
+ Survived       0.0
+Sex_Binary     1.0
+Pclass         3.0
+Age           22.0
+Name: 0, dtype: float64
+
+Data Pembanding 2:
+ Survived       1.0
+Sex_Binary     0.0
+Pclass         1.0
+Age           38.0
+Name: 1, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="biner-simetris-smc">
+<h3>Biner Simetris (SMC)<a class="headerlink" href="#biner-simetris-smc" title="Link to this heading">#</a></h3>
+<p>Atribut simetris menganggap nilai <span class="math notranslate nohighlight">\(0\)</span> dan <span class="math notranslate nohighlight">\(1\)</span> sama pentingnya. Rumus Simple Matching Coefficient (SMC) adalah:</p>
+<div class="math notranslate nohighlight">
+\[d(i, j) = \frac{r + s}{q + r + s + t}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengambil kolom Sex_Binary saja</span>
+<span class="n">v1_sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data_1</span><span class="p">[</span><span class="s1">&#39;Sex_Binary&#39;</span><span class="p">]])</span>
+<span class="n">v2_sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data_2</span><span class="p">[</span><span class="s1">&#39;Sex_Binary&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Implementasi manual SMC</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hitung_smc</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
+    <span class="n">m11</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">v1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">v2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">m00</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">v1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">v2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">m11</span> <span class="o">+</span> <span class="n">m00</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil SMC (Simetris): </span><span class="si">{</span><span class="n">hitung_smc</span><span class="p">(</span><span class="n">v1_sim</span><span class="p">,</span><span class="w"> </span><span class="n">v2_sim</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil SMC (Simetris): 0.000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="biner-asimetris-jaccard">
+<h3>Biner Asimetris (Jaccard)<a class="headerlink" href="#biner-asimetris-jaccard" title="Link to this heading">#</a></h3>
+<p>Pada biner asimetris, nilai <span class="math notranslate nohighlight">\(1\)</span> dianggap lebih bermakna daripada <span class="math notranslate nohighlight">\(0\)</span>. Berikut adalah rumus:
+$<span class="math notranslate nohighlight">\(d(i, j) = \frac{r + s}{q + r + s}\)</span><span class="math notranslate nohighlight">\(
+*Persamaan kemiripannya disebut **Jaccard Coefficient**:*
+\)</span><span class="math notranslate nohighlight">\(sim(i, j) = \frac{q}{q + r + s}\)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengambil kolom Survived sebagai sampel asimetris</span>
+<span class="n">v1_asym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data_1</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]])</span>
+<span class="n">v2_asym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">data_2</span><span class="p">[</span><span class="s1">&#39;Survived&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Menggunakan fungsi bawaan scipy (Distance = 1 - Similarity)</span>
+<span class="n">jaccard_dist</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">jaccard</span><span class="p">(</span><span class="n">v1_asym</span><span class="p">,</span> <span class="n">v2_asym</span><span class="p">)</span>
+<span class="n">jaccard_sim</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">jaccard_dist</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jaccard Similarity (Asimetris): </span><span class="si">{</span><span class="n">jaccard_sim</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jaccard Distance: </span><span class="si">{</span><span class="n">jaccard_dist</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jaccard Similarity (Asimetris): 0.000
+Jaccard Distance: 1.000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Berikut ada hasil dari Orange Data Mining:</p>
+<p><img alt="image.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAABjCAYAAABKSSQEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAU3SURBVHhe7Z0/aCpZFId/s7V5FmmCvCo4GXwQLAILCmm2U1KkifVWyja7WjzYJs2m2CKFwzZLrLZOmhTB6dIsKDxIIYEkxiHVRtII5mk/W3jH6MTkjn9G556cD6Y5Z5CLn3dm7uWcUet2uw4YMvzgDTBqw0KJwUKJwUKJwUKJoY0+5f719z84/P238TMYpQhshrbbbW8o9FAYc2BCmdXAQonBQonBQonBQonBQonBQonBQonBQomhllCrAE3ThkfatL1nhBarMBhzwfJmFos6Qq0CtGxlLFQv6YF/QXNjm0hrGjxDDwxFhNowjwbfSKrcguM4qOYHmcqRidDOU6sATS+h7o0HiBpC7Quc1gEghdxeHACQ2RdG66e4CK1RAEih3KpCjDZw1BDauhW/8m0YA5+AnkBq7KQQkjmB49RQdMe8BNQQyviGhRJDDaHDy+s1mu79ctJlmFFEaNzANgCgjlPxBGSdi3VAKgF99NwPjhpCkcHX8mCO1ks6tJF1Xf6wCJ6gLygiFIgXa2gJqS75qoOTzFjow6OMUAipjuMMD3VkZnCypDErJZSRw0KJwUKJwUKJwUKJwUKJwUKJwUKJEVg7YbvdRiwW84ZDS7PZhGEYyCHnTYWWo+YRDMMYi/EMJQYLJQYLJQYLJQYLJQYLJQYLJQYLJQYLnYo+7tNnuJL101hXONPOxHGJe29lv32Py2F+wufJ8u8wnVDReDPsAAt9p9Di6JuXONMsNGSNKvY9LrPPSLYOcOAc4KAaRUO/wtPwhCdc6Q1EqyLfSuI5Oypdln8f/0JtE2lv400lq1RL38xYV7BKUew6GSQl/RdPxw2g/CO23FLEjIFk6gE3Zh8A0Ddv8JDfxY5bWxTfwpd8B43jgXJZXoZvodaxkJmvwnGcYQVevXQM8vM0s4MDZwcb3vgr+vh+DUSNyEgsglhuHZ1bIfS2g/XEaB7Y2N8Err+j7yMvw6dQC25dc35/8NOJ7+VENXsF5+SN+qWPXn0da29Wfk8SPoosL8efULuJawBACgl3sMNqdsYXshlW782XF/gTyszP9ie8O+9Sa/PlBSx0oUSwluqg1/LGXSL4tA08N9+aa7K8HH9CR5qFbt3BTroMf3gmCemjfdrB5v7gkSqSeHlAcnk6f8B6LoaIj7wMf0KhIyEe1yviCci+OOV2PmC42XApliUb+5volL69rButJhpIwhDLkMjeZ6xX/n3ZLLDvcVPZxJfiQJcsL8On0DiKh+5bKrLQNA16aaAzVf6KgNs11CKzIzYTxE5PFtitbb3MrvgWfmol8ZwVef0/fG6NLIlkeQnT1RR5Xi2TKrdQe+MFAlxTFDzz1xRlTsa6v96SyayO6YQyoYeFEoOFEoOFEoOFEoOFEmO6degUtNtt9Ho9b5hZMN51KLrdruMef/xpOovi8fHRGwo1d3d33lDomTTmQGdoMVb0hkPLpF2XsOPubo3C91BisFBisFBisFBisFBisFBisFBisFBirFBo+Du5VGQmobaZnuu/x1Tp5FKRKYVaKIxU/M2EQp1cKuJfqG0irWUx93+yKdTJpSL+hQry1RY87/IPiNV3cqmIf6HxImpLeAm+L2QzTNapJcsrjH+hYWJJnVwqEmKhq+/kUpFQC30tZLmdXCoSMqHh6uRSkZAJ9bDiTi4VmaGmyIaZ1lGqy7vPuKYoWBZUUxRHscbdZ2FlBqFMmGGhxGChxGChxGChxGChxJhhHeoP7j5bDt51aKBCVXqtDRVeCf31l5/Hz5iDaDTqDTEBw/dQYvwP1XWYpRK84poAAAAASUVORK5CYII=" /></p>
+</section>
+<section id="biner-campuran-mixed-attributes">
+<h3>Biner Campuran (Mixed Attributes)<a class="headerlink" href="#biner-campuran-mixed-attributes" title="Link to this heading">#</a></h3>
+<p>Untuk data campuran, kita menghitung jarak tiap fitur secara terpisah (berdasarkan tipenya) lalu merata-ratakannya. Untuk fitur numerik seperti Age, kita menggunakan normalisasi rentang (range).</p>
+<div class="math notranslate nohighlight">
+\[d(i,j) = \frac{\sum dist\_fitur}{total\_fitur}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menentukan rentang untuk normalisasi Age</span>
+<span class="n">age_range</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hitung_campuran</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+    <span class="c1"># Jarak Numerik (Age) - Dinormalisasi</span>
+    <span class="n">d_age</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">age_range</span>
+
+    <span class="c1"># Jarak Biner (Sex) - Simetris</span>
+    <span class="n">d_sex</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Sex_Binary&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Sex_Binary&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+
+    <span class="c1"># Jarak Nominal (Pclass)</span>
+    <span class="n">d_pclass</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+
+    <span class="c1"># Rata-rata</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">d_age</span> <span class="o">+</span> <span class="n">d_sex</span> <span class="o">+</span> <span class="n">d_pclass</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+
+<span class="n">hasil_campuran</span> <span class="o">=</span> <span class="n">hitung_campuran</span><span class="p">(</span><span class="n">data_1</span><span class="p">,</span> <span class="n">data_2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jarak Campuran (Gower-based): </span><span class="si">{</span><span class="n">hasil_campuran</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jarak Campuran (Gower-based): 0.734
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tipe-categorical">
+<h2>Tipe Categorical<a class="headerlink" href="#tipe-categorical" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Import Library</strong><br>
+Langkah awal untuk memproses data kategorikal.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Memuat Dataset (Categorical Fokus)</strong><br>
+Kita akan menggunakan dataset Titanic lagi, namun kali ini kita fokus pada kolom-kolom kategori seperti Embarked (Pelabuhan Keberangkatan), Sex, dan Pclass.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca dataset Titanic dari sumber publik</span>
+<span class="n">df_cat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan 5 data teratas</span>
+<span class="n">df_cat</span> <span class="o">=</span> <span class="n">df_cat</span><span class="p">[[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan 5 data teratas</span>
+<span class="n">df_cat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Sex</th>
+      <th>Embarked</th>
+      <th>Pclass</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>male</td>
+      <td>S</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>female</td>
+      <td>C</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>female</td>
+      <td>S</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>female</td>
+      <td>S</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>male</td>
+      <td>S</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Memilih Data Pembanding (Categorical)</strong><br>
+Kita akan mengambil dua baris data untuk dibandingkan kecocokan kategorinya.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengambil dua baris sebagai sampel</span>
+<span class="n">cat_1</span> <span class="o">=</span> <span class="n">df_cat</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Contoh: Male, S, 3</span>
+<span class="n">cat_2</span> <span class="o">=</span> <span class="n">df_cat</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># Contoh: Female, S, 3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Kategori 1:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cat_1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Kategori 2:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cat_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Kategori 1:
+ Sex         male
+Embarked       S
+Pclass         3
+Name: 0, dtype: object
+------------------------------
+Data Kategori 2:
+ Sex         female
+Embarked         S
+Pclass           3
+Name: 2, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id3">
+<h3>Overlay Metric (OM)<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Overlay Metric memberikan nilai <span class="math notranslate nohighlight">\(0\)</span> jika nilai atribut sama, dan <span class="math notranslate nohighlight">\(1\)</span> jika berbeda. Jarak total adalah jumlah ketidakcocokan dibagi dengan total atribut. Rumus matematis: $<span class="math notranslate nohighlight">\(d(x,y) = \sum_{i=1}^{n} \delta(a_i(x), a_i(y))\)</span>$</p>
+<p>Di mana:
+$<span class="math notranslate nohighlight">\(\delta(a_i(x), a_i(y)) =
+\begin{cases}
+0, &amp; \text{jika } a_i(x) = a_i(y) \
+1, &amp; \text{jika } a_i(x) \neq a_i(y)
+\end{cases}\)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">overlay_metric</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+    <span class="c1"># Menghitung delta: 0 jika sama, 1 jika beda</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)]</span>
+
+    <span class="n">total_jarak</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+    <span class="c1"># Normalisasi jarak (0 sampai 1)</span>
+    <span class="n">jarak_normalisasi</span> <span class="o">=</span> <span class="n">total_jarak</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">total_jarak</span><span class="p">,</span> <span class="n">jarak_normalisasi</span>
+
+<span class="n">jarak_om</span><span class="p">,</span> <span class="n">jarak_norm</span> <span class="o">=</span> <span class="n">overlay_metric</span><span class="p">(</span><span class="n">cat_1</span><span class="p">,</span> <span class="n">cat_2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detail Ketidakcocokan: </span><span class="si">{</span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">zip</span><span class="p">(</span><span class="n">cat_1</span><span class="p">,</span><span class="w"> </span><span class="n">cat_2</span><span class="p">)]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Jarak (OM)        : </span><span class="si">{</span><span class="n">jarak_om</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jarak Normalisasi (0-1) : </span><span class="si">{</span><span class="n">jarak_norm</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Detail Ketidakcocokan: [1, 0, 0]
+Total Jarak (OM)        : 1
+Jarak Normalisasi (0-1) : 0.3333
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tipe-ordinal">
+<h2>Tipe Ordinal<a class="headerlink" href="#tipe-ordinal" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Import Library</strong><br>
+Langkah awal untuk memproses data ordinal dan perhitungan numerik.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Memuat Dataset (Fokus Ordinal)</strong><br>
+Kita akan menggunakan dataset Titanic dengan fokus pada kolom Pclass (Ticket Class). Kolom ini adalah data ordinal karena memiliki tingkatan (1st &gt; 2nd &gt; 3rd).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca dataset Titanic dari sumber publik</span>
+<span class="n">df_ord</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Memilih kolom Pclass sebagai data ordinal</span>
+<span class="n">df_ord</span> <span class="o">=</span> <span class="n">df_ord</span><span class="p">[[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan data unik untuk melihat tingkatan (M_f)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Daftar Peringkat Pclass:&quot;</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df_ord</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Daftar Peringkat Pclass: [np.int64(1), np.int64(2), np.int64(3)]
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Transformasi dan Normalisasi Ordinal</strong><br>
+Untuk menghitung jarak, kita harus mengubah peringkat (<span class="math notranslate nohighlight">\(r_{if}\)</span>) menjadi nilai terstandarisasi (<span class="math notranslate nohighlight">\(z_{if}\)</span>) menggunakan rumus:
+$<span class="math notranslate nohighlight">\(z_{if} = \frac{r_{if} - 1}{M_f - 1}\)</span><span class="math notranslate nohighlight">\(
+Di mana \)</span>M_f<span class="math notranslate nohighlight">\( adalah jumlah total peringkat dalam atribut tersebut (untuk Pclass, \)</span>M_f = 3$).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menentukan nilai peringkat maksimum (M_f)</span>
+<span class="n">M_f</span> <span class="o">=</span> <span class="n">df_ord</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="c1"># Melakukan normalisasi ke rentang [0, 1]</span>
+<span class="n">df_ord</span><span class="p">[</span><span class="s1">&#39;z_if&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_ord</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">M_f</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Mengambil dua baris sebagai sampel pembanding</span>
+<span class="n">ord_1</span> <span class="o">=</span> <span class="n">df_ord</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Pclass 3</span>
+<span class="n">ord_2</span> <span class="o">=</span> <span class="n">df_ord</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Pclass 1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data 1 (Asli):&quot;</span><span class="p">,</span> <span class="n">ord_1</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">],</span> <span class="s2">&quot; -&gt; Hasil z_if:&quot;</span><span class="p">,</span> <span class="n">ord_1</span><span class="p">[</span><span class="s1">&#39;z_if&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data 2 (Asli):&quot;</span><span class="p">,</span> <span class="n">ord_2</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">],</span> <span class="s2">&quot; -&gt; Hasil z_if:&quot;</span><span class="p">,</span> <span class="n">ord_2</span><span class="p">[</span><span class="s1">&#39;z_if&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data 1 (Asli): 3.0  -&gt; Hasil z_if: 1.0
+Data 2 (Asli): 1.0  -&gt; Hasil z_if: 0.0
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Transformasi dan Normalisasi Ordinal</strong><br>
+Setelah nilai dikonversi ke <span class="math notranslate nohighlight">\(z_{if}\)</span>, kita bisa menghitung jaraknya menggunakan metrik numerik seperti Manhattan Distance.
+$<span class="math notranslate nohighlight">\(d(x,y) = |z_{i1} - z_{i2}|\)</span>$</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung jarak absolut (Manhattan) antara dua nilai z_if</span>
+<span class="n">jarak_ordinal</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ord_1</span><span class="p">[</span><span class="s1">&#39;z_if&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">ord_2</span><span class="p">[</span><span class="s1">&#39;z_if&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jarak Ordinal antara Pclass </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">ord_1</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> dan </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">ord_2</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> adalah: </span><span class="si">{</span><span class="n">jarak_ordinal</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jarak Ordinal antara Pclass 3 dan 1 adalah: 1.0000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tipe-campuran">
+<h2>Tipe Campuran<a class="headerlink" href="#tipe-campuran" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Import Library</strong><br>
+Langkah awal untuk memproses data campuran dan perhitungan jarak.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gower</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Memuat Dataset Titanic</strong></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca dataset Titanic dari sumber publik</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;dataset/Titanic-Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan 5 data teratas</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Memilih Data Pembanding (Campuran)</strong><br>
+Kita akan mengambil dua baris data untuk dibandingkan dengan mempertimbangkan semua jenis atribut (numerik, biner, dan kategori).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="s1">&#39;Pclass&#39;</span><span class="p">,</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;Embarked&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df_gower</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+<span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>3</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat ringkasan tipe data dalam bentuk tabel</span>
+<span class="n">type_summary</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">type_summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Kolom&#39;</span><span class="p">,</span> <span class="s1">&#39;Tipe Data&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabel Tipe Data df_clean:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">type_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tabel Tipe Data df_clean:
+      Kolom Tipe Data
+0  Survived     int64
+1    Pclass     int64
+2       Sex       str
+3       Age   float64
+4     SibSp     int64
+5     Parch     int64
+6      Fare   float64
+7  Embarked       str
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Menghitung Jarak Campuran (Gower’s Similarity Coefficient)</strong><br>
+Untuk data campuran, kita menggunakan Gower’s Similarity Coefficient yang menghitung jarak tiap fitur berdasarkan tipenya, lalu merata-ratakannya. Rumusnya adalah:
+$<span class="math notranslate nohighlight">\(d(i, j) = \frac{\sum_{f=1}^{p} \delta_{ij}^{(f)} d_{ij}^{(f)}}{\sum_{f=1}^{p} \delta_{ij}^{(f)}}\)</span>$</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distance_matrix</span> <span class="o">=</span> <span class="n">gower</span><span class="o">.</span><span class="n">gower_matrix</span><span class="p">(</span><span class="n">df_gower</span><span class="p">)</span>
+<span class="c1"># 5. Buat DataFrame Matriks Jarak</span>
+<span class="n">dist_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">distance_matrix</span><span class="p">,</span> 
+    <span class="n">index</span><span class="o">=</span><span class="n">df_gower</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">df_gower</span><span class="o">.</span><span class="n">index</span>
+<span class="p">)</span>
+
+<span class="c1"># Menampilkan 5x5 pertama dari matriks</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matriks Jarak (5 Baris Pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dist_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matriks Jarak (5 Baris Pertama):
+       0      1      2      3      4
+0  0.000  0.750  0.625  0.625  0.375
+1  0.750  0.000  0.625  0.375  0.875
+2  0.625  0.625  0.000  0.500  0.500
+3  0.625  0.375  0.500  0.000  0.625
+4  0.375  0.875  0.500  0.625  0.000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="numerik">
+<h1>Numerik<a class="headerlink" href="#numerik" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Load Data dari file lokal</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/Titanic-Dataset.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Tentukan kolom numerik yang akan digunakan</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">]</span>
+
+<span class="c1"># 3. Ambil data Penumpang baris ke-0 dan baris ke-1</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span>
+
+<span class="c1"># 4. Hitung Jarak Euclidean</span>
+<span class="c1"># Rumus: akar dari total (selisih kuadrat)</span>
+<span class="n">euclidean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># 5. Hitung Jarak Manhattan</span>
+<span class="c1"># Rumus: total dari selisih absolut</span>
+<span class="n">manhattan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">))</span>
+
+
+
+
+<span class="c1"># Tampilkan Hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Penumpang 1 (Indeks 0):</span><span class="se">\n</span><span class="si">{</span><span class="n">p1</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Penumpang 2 (Indeks 1):</span><span class="se">\n</span><span class="si">{</span><span class="n">p2</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil Jarak Euclidean : </span><span class="si">{</span><span class="n">euclidean</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil Jarak Manhattan : </span><span class="si">{</span><span class="n">manhattan</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Penumpang 1 (Indeks 0):
+{&#39;Age&#39;: 22.0, &#39;Fare&#39;: 7.25, &#39;SibSp&#39;: 1.0, &#39;Parch&#39;: 0.0}
+
+Data Penumpang 2 (Indeks 1):
+{&#39;Age&#39;: 38.0, &#39;Fare&#39;: 71.2833, &#39;SibSp&#39;: 1.0, &#39;Parch&#39;: 0.0}
+
+Hasil Jarak Euclidean : 66.0020
+Hasil Jarak Manhattan : 80.0333
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Load Data dari file lokal</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/Titanic-Dataset.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Tentukan kolom numerik yang akan digunakan</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">,</span> <span class="s1">&#39;SibSp&#39;</span><span class="p">,</span> <span class="s1">&#39;Parch&#39;</span><span class="p">]</span>
+
+<span class="c1"># 3. Hitung Range (R_k) untuk setiap kolom (Wajib untuk normalisasi)</span>
+<span class="c1"># Ini menghitung (Maksimum - Minimum) untuk setiap kolom numerik</span>
+<span class="n">ranges</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+<span class="c1"># 4. Ambil data Penumpang baris ke-0 dan baris ke-1</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="p">]</span>
+
+<span class="c1"># 5. Hitung Jarak Euclidean Ter-normalisasi</span>
+<span class="c1"># Rumus: akar dari total kuadrat (selisih / range)</span>
+<span class="c1"># Ini setara dengan menghitung Euclidean pada data yang sudah di-MinMax Scaling</span>
+<span class="n">euclidean_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">/</span> <span class="n">ranges</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># 6. Hitung Jarak Manhattan Ter-normalisasi</span>
+<span class="c1"># Rumus: total dari absolut (selisih / range)</span>
+<span class="c1"># Ini adalah komponen numerik yang digunakan dalam Gower Distance</span>
+<span class="n">manhattan_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">/</span> <span class="n">ranges</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan Hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Data Penumpang ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P0: </span><span class="si">{</span><span class="n">p1</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P1: </span><span class="si">{</span><span class="n">p2</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Range yang Digunakan ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ranges</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil Jarak Euclidean (Normalized) : </span><span class="si">{</span><span class="n">euclidean_norm</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil Jarak Manhattan (Normalized) : </span><span class="si">{</span><span class="n">manhattan_norm</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Data Penumpang ---
+P0: {&#39;Age&#39;: 22.0, &#39;Fare&#39;: 7.25, &#39;SibSp&#39;: 1.0, &#39;Parch&#39;: 0.0}
+P1: {&#39;Age&#39;: 38.0, &#39;Fare&#39;: 71.2833, &#39;SibSp&#39;: 1.0, &#39;Parch&#39;: 0.0}
+
+--- Range yang Digunakan ---
+{&#39;Age&#39;: 79.58, &#39;Fare&#39;: 512.3292, &#39;SibSp&#39;: 8.0, &#39;Parch&#39;: 6.0}
+
+Hasil Jarak Euclidean (Normalized) : 0.2367
+Hasil Jarak Manhattan (Normalized) : 0.3260
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Jarak Euclidean (Euclidean Distance)</strong></p>
+<p>Jarak Euclidean adalah panjang garis lurus antara dua titik dalam ruang multidimensi. Rumus umumnya adalah:</p>
+<p>Jika diterapkan langsung pada fitur numerik Titanic:</p>
+<div class="math notranslate nohighlight">
+\[d_{Euclidean}(p, q) = \sqrt{\sum_{i=1}^{n} (p_i - q_i)^2}\]</div>
+<div class="math notranslate nohighlight">
+\[d_{Euclidean} = \sqrt{(Age_p - Age_q)^2 + (Fare_p - Fare_q)^2 + (SibSp_p - SibSp_q)^2 + (Parch_p - Parch_q)^2}\]</div>
+<p>Contoh Perhitungan (Penumpang 0 vs Penumpang 1):</p>
+<div class="math notranslate nohighlight">
+\[d = \sqrt{(22 - 38)^2 + (7.25 - 71.2833)^2 + (1 - 1)^2 + (0 - 0)^2}\]</div>
+<div class="math notranslate nohighlight">
+\[d = \sqrt{(-16)^2 + (-64.0333)^2 + 0^2 + 0^2}\]</div>
+<div class="math notranslate nohighlight">
+\[d = \sqrt{256 + 4100.2635}\]</div>
+<div class="math notranslate nohighlight">
+\[d = \sqrt{4356.2635} \approx 66.0019\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">euclidean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil Jarak Euclidean : </span><span class="si">{</span><span class="n">euclidean</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Jarak Euclidean : 66.0020
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Jarak Manhattan (Manhattan Distance)</strong></p>
+<p>Jarak Manhattan (sering disebut City Block Distance) adalah jumlah selisih absolut dari setiap koordinatnya. Rumus umumnya adalah:</p>
+<div class="math notranslate nohighlight">
+\[d_{Manhattan}(p, q) = \sum_{i=1}^{n} |p_i - q_i|\]</div>
+<p>Jika diterapkan langsung pada fitur numerik Titanic:</p>
+<div class="math notranslate nohighlight">
+\[d_{Manhattan} = |Age_p - Age_q| + |Fare_p - Fare_q| + |SibSp_p - SibSp_q| + |Parch_p - Parch_q|\]</div>
+<p>Contoh Perhitungan (Penumpang 0 vs Penumpang 1):</p>
+<div class="math notranslate nohighlight">
+\[d = |22 - 38| + |7.25 - 71.2833| + |1 - 1| + |0 - 0|\]</div>
+<div class="math notranslate nohighlight">
+\[d = |-16| + |-64.0333| + 0 + 0\]</div>
+<div class="math notranslate nohighlight">
+\[d = 16 + 64.0333\]</div>
+<div class="math notranslate nohighlight">
+\[d = 80.0333\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">manhattan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil Jarak Manhattan : </span><span class="si">{</span><span class="n">manhattan</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Jarak Manhattan : 80.0333
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="binary-categorical">
+<h1>Binary &amp; Categorical<a class="headerlink" href="#binary-categorical" title="Link to this heading">#</a></h1>
+<p>Kolom: Sex (Biner) dan Embarked (Kategorikal)</p>
+<p>Pada tipe data ini, tidak ada urutan atau besaran angka. Jarak hanya dihitung berdasarkan apakah nilai tersebut identik atau tidak.</p>
+<p>Jarak antara dua data <span class="math notranslate nohighlight">\(p\)</span> dan <span class="math notranslate nohighlight">\(q\)</span> untuk fitur kategorikal/biner didefinisikan sebagai:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}d(p, q) = \begin{cases} 0, &amp; \text{jika } p = q \\ 1, &amp; \text{jika } p \neq q \end{cases}\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Load Data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># 2. Tentukan kolom</span>
+<span class="n">col_bin</span> <span class="o">=</span> <span class="s1">&#39;Sex&#39;</span>
+<span class="n">col_cat</span> <span class="o">=</span> <span class="s1">&#39;Embarked&#39;</span>
+
+<span class="c1"># 3. Ambil data Penumpang baris 0 dan 1</span>
+<span class="n">p1_sex</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">col_bin</span><span class="p">]</span>
+<span class="n">p2_sex</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">col_bin</span><span class="p">]</span>
+
+<span class="n">p1_emb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">col_cat</span><span class="p">]</span>
+<span class="n">p2_emb</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">col_cat</span><span class="p">]</span>
+
+<span class="c1"># 4. Hitung Jarak (0 jika sama, 1 jika beda)</span>
+<span class="n">dist_sex</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">p1_sex</span> <span class="o">==</span> <span class="n">p2_sex</span> <span class="k">else</span> <span class="mi">1</span>
+<span class="n">dist_emb</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">p1_emb</span> <span class="o">==</span> <span class="n">p2_emb</span> <span class="k">else</span> <span class="mi">1</span>
+
+<span class="c1"># Tampilkan Hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Perbandingan Biner (Sex) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P0: </span><span class="si">{</span><span class="n">p1_sex</span><span class="si">}</span><span class="s2">, P1: </span><span class="si">{</span><span class="n">p2_sex</span><span class="si">}</span><span class="s2"> -&gt; Jarak: </span><span class="si">{</span><span class="n">dist_sex</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Perbandingan Kategorikal (Embarked) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P0: </span><span class="si">{</span><span class="n">p1_emb</span><span class="si">}</span><span class="s2">, P1: </span><span class="si">{</span><span class="n">p2_emb</span><span class="si">}</span><span class="s2"> -&gt; Jarak: </span><span class="si">{</span><span class="n">dist_emb</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Perbandingan Biner (Sex) ---
+P0: male, P1: female -&gt; Jarak: 1
+
+--- Perbandingan Kategorikal (Embarked) ---
+P0: S, P1: C -&gt; Jarak: 1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tipe-data-ordinal">
+<h1>Tipe Data Ordinal<a class="headerlink" href="#tipe-data-ordinal" title="Link to this heading">#</a></h1>
+<p>Kolom: Pclass (Kelas 1, 2, dan 3)Pada Pclass, angka 1 lebih “tinggi” atau lebih mewah daripada angka 2 dan 3. Oleh karena itu, kita tidak bisa hanya menggunakan 0 atau 1 (seperti biner), melainkan menghitung selisih urutannya dan membaginya dengan rentang total agar hasilnya tetap dalam skala <span class="math notranslate nohighlight">\([0, 1]\)</span>.</p>
+<p>Jarak antara dua data <span class="math notranslate nohighlight">\(p\)</span> dan <span class="math notranslate nohighlight">\(q\)</span> untuk fitur ordinal didefinisikan sebagai:
+$<span class="math notranslate nohighlight">\(d_{ordinal}(p, q) = \frac{|rank(p) - rank(q)|}{max(rank) - min(rank)}\)</span>$</p>
+<p>Jika diterapkan pada Pclass:</p>
+<div class="math notranslate nohighlight">
+\[d_{pclass} = \frac{|Pclass_p - Pclass_q|}{3 - 1}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># 1. Load Data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/Titanic-Dataset.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Tentukan kolom</span>
+<span class="n">col_ord</span> <span class="o">=</span> <span class="s1">&#39;Pclass&#39;</span>
+
+<span class="c1"># 3. Ambil data Penumpang baris 0 dan 1</span>
+<span class="n">p1_class</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">col_ord</span><span class="p">]</span>
+<span class="n">p2_class</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">col_ord</span><span class="p">]</span>
+
+<span class="c1"># 4. Tentukan nilai Max dan Min dari kolom tersebut</span>
+<span class="n">max_val</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ord</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="c1"># Nilainya 3</span>
+<span class="n">min_val</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_ord</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="c1"># Nilainya 1</span>
+
+<span class="c1"># 5. Hitung Jarak Ordinal</span>
+<span class="n">dist_pclass</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1_class</span> <span class="o">-</span> <span class="n">p2_class</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan Hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Perbandingan Ordinal (Pclass) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P0: Kelas </span><span class="si">{</span><span class="n">p1_class</span><span class="si">}</span><span class="s2">, P1: Kelas </span><span class="si">{</span><span class="n">p2_class</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jarak: </span><span class="si">{</span><span class="n">dist_pclass</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Perbandingan Ordinal (Pclass) ---
+P0: Kelas 3, P1: Kelas 1
+Jarak: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="konsep-gower-distance">
+<h1>Konsep Gower Distance<a class="headerlink" href="#konsep-gower-distance" title="Link to this heading">#</a></h1>
+<p>Gower Distance menghitung rata-rata jarak dari seluruh fitur. Setiap fitur dihitung menggunakan metrik yang sesuai dengan tipenya, namun semuanya dikonversi ke skala <span class="math notranslate nohighlight">\([0, 1]\)</span> agar adil.</p>
+<p>Jarak Gower antara data <span class="math notranslate nohighlight">\(i\)</span> dan <span class="math notranslate nohighlight">\(j\)</span> adalah:</p>
+<div class="math notranslate nohighlight">
+\[d(i, j) = \frac{\sum_{k=1}^{n} w_k \cdot \delta_{ij}^{(k)} \cdot d_{ij}^{(k)}}{\sum_{k=1}^{n} w_k \cdot \delta_{ij}^{(k)}}\]</div>
+<p>Di mana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d_{ij}^{(k)}\)</span> adalah jarak untuk fitur ke-<span class="math notranslate nohighlight">\(k\)</span> (menggunakan rumus Numerik, Biner, atau Ordinal yang sudah kita bahas).</p></li>
+<li><p><span class="math notranslate nohighlight">\(w_k\)</span> adalah bobot (biasanya <span class="math notranslate nohighlight">\(1\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta_{ij}^{(k)}\)</span> adalah indikator (<span class="math notranslate nohighlight">\(0\)</span> jika data kosong/NA, <span class="math notranslate nohighlight">\(1\)</span> jika ada nilainya).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Load Data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/Titanic-Dataset.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2. Preprocessing Cepat</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hitung_gower</span><span class="p">(</span><span class="n">idx1</span><span class="p">,</span> <span class="n">idx2</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span>
+    
+    <span class="c1"># A. Jarak Numerik (Normalized Manhattan)</span>
+    <span class="n">dist_age</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">dist_fare</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Fare&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">dist_sibsp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">dist_parch</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    
+    <span class="c1"># B. Jarak Biner &amp; Kategorikal (0 atau 1)</span>
+    <span class="n">dist_sex</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="n">dist_embarked</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Embarked&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+    
+    <span class="c1"># C. Jarak Ordinal (Normalized Rank)</span>
+    <span class="n">dist_pclass</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">p2</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pclass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    
+    <span class="c1"># D. Rata-rata Gabungan (Gower)</span>
+    <span class="n">list_jarak</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist_age</span><span class="p">,</span> <span class="n">dist_fare</span><span class="p">,</span><span class="n">dist_sibsp</span><span class="p">,</span><span class="n">dist_parch</span><span class="p">,</span> <span class="n">dist_sex</span><span class="p">,</span> <span class="n">dist_embarked</span><span class="p">,</span> <span class="n">dist_pclass</span><span class="p">]</span>
+    <span class="n">skor_gower</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">list_jarak</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_jarak</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">skor_gower</span>
+
+<span class="c1"># Eksekusi</span>
+<span class="n">hasil_gower</span> <span class="o">=</span> <span class="n">hitung_gower</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Jarak Gower (P0 vs P1): </span><span class="si">{</span><span class="n">hasil_gower</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total Jarak Gower (P0 vs P1): 0.4751
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -418,30 +2376,88 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="data-understanding.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Data Understanding</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="data-preparation.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Preparation</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mengukur Jarak Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-data-tipe-numerik">Mengukur Jarak Data (Tipe Numerik)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minkowski-distance">1. Minkowski Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manhattan-distance">2. Manhattan Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">3. Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#average-distance">4. Average Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-euclidean-distance">5. Weighted Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chord-distance">6. Chord Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mahalanobis-distance">7. Mahalanobis Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">8. Cosine Similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pearson-correlation">9. Pearson Correlation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-atribut-binary">Mengukur Jarak Atribut Binary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simetris-biner-symmetric-binary">1. Simetris Biner (Symmetric Binary)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetris-biner-asymmetric-binary">2. Asimetris Biner (Asymmetric Binary)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-tipe-categorical-nominal">Mengukur Jarak Tipe Categorical (Nominal)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-metric-om">1. Overlay Metric (OM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-difference-metric-vdm">2. Value Difference Metric (VDM)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-tipe-ordinal">Mengukur Jarak Tipe Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengukur-jarak-tipe-campuran-mixed-types">Mengukur Jarak Tipe Campuran (Mixed Types)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menghitung-jarak">Implementasi Menghitung Jarak</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-iris">Dataset IRIS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-iris">Tabel Klasifikasi Tipe Data Dataset Iris</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-dataset">Ringkasan Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-titanic-campuran">Dataset Titanic (Campuran)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-klasifikasi-tipe-data-dataset-titanic">Tabel Klasifikasi Tipe Data Dataset Titanic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-statistik">Ringkasan Statistik</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-numerik">Tipe Numerik</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Manhattan Distance</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-binary">Tipe Binary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biner-simetris-smc">Biner Simetris (SMC)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biner-asimetris-jaccard">Biner Asimetris (Jaccard)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biner-campuran-mixed-attributes">Biner Campuran (Mixed Attributes)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-categorical">Tipe Categorical</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Overlay Metric (OM)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-ordinal">Tipe Ordinal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-campuran">Tipe Campuran</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#numerik">Numerik</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-categorical">Binary &amp; Categorical</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-ordinal">Tipe Data Ordinal</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-gower-distance">Konsep Gower Distance</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
