@@ -402,16 +402,16 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-wknn-imputation-dengan-normalisasi-data">Tugas WKNN Imputation dengan Normalisasi Data</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langakah-1-normalisasi-data">Langakah 1: Normalisasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-normalisasi-data">Langkah 1: Normalisasi Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-nilai-minimum-dan-maksimum">Menentukan Nilai Minimum dan Maksimum</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-kolom-ipk">Perhitungan Normalisasi Kolom IPK:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-dan-kemiripan-s-i">Langkah 2: Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-estimasi-menggunakan-weighted-average">Langkah 3: Hitung Estimasi Menggunakan Weighted Average</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembilang-atas">Pembilang (Atas):</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penyebut-bawah">Penyebut (Bawah):</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">Hasil Akhir:</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-dan-kemiripan-s-i">Langkah 2: Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-estimasi-menggunakan-weighted-average">Langkah 3: Hitung Estimasi Menggunakan Weighted Average</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pembilang-atas">Pembilang (Atas):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penyebut-bawah">Penyebut (Bawah):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">Hasil Akhir:</a></li>
 </ul>
 </li>
 </ul>
@@ -880,8 +880,8 @@ Tentukan angka terbesar untuk tahu berapa kali koma harus digeser ke kiri agar h
 </div>
 </div>
 <p>Pada data di atas, terdapat nilai yang hilang pada baris ke-7 di kolom JML. Saya akan melakukan imputasi menggunakan metode WKNN dengan normalisasi data menggunakan min-max normalization.</p>
-<section id="langakah-1-normalisasi-data">
-<h2>Langakah 1: Normalisasi Data<a class="headerlink" href="#langakah-1-normalisasi-data" title="Link to this heading">#</a></h2>
+<section id="langkah-1-normalisasi-data">
+<h2>Langkah 1: Normalisasi Data<a class="headerlink" href="#langkah-1-normalisasi-data" title="Link to this heading">#</a></h2>
 <section id="menentukan-nilai-minimum-dan-maksimum">
 <h3>Menentukan Nilai Minimum dan Maksimum<a class="headerlink" href="#menentukan-nilai-minimum-dan-maksimum" title="Link to this heading">#</a></h3>
 <p>Sebelum melakukan imputasi, saya akan melakukan normalisasi data menggunakan min-max normalization. Berikut adalah hasil normalisasi untuk setiap kolom:</p>
@@ -1105,8 +1105,9 @@ dtype: float64
 </div>
 <p>Data sudah ternormalisasi dengan rentang nilai antara 0 dan 1. Selanjutnya, kita akan melakukan imputasi menggunakan metode WKNN untuk mengisi nilai yang hilang pada kolom JML di baris ke-7.</p>
 </section>
+</section>
 <section id="langkah-2-hitung-jarak-dan-kemiripan-s-i">
-<h3>Langkah 2: Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)<a class="headerlink" href="#langkah-2-hitung-jarak-dan-kemiripan-s-i" title="Link to this heading">#</a></h3>
+<h2>Langkah 2: Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)<a class="headerlink" href="#langkah-2-hitung-jarak-dan-kemiripan-s-i" title="Link to this heading">#</a></h2>
 <p>Pada langkah ini, saya akan menggunakan rumus WKNN seperti yang sudah dijelaskan sebelumnya untuk menghitung jarak dan kemiripan antara data yang memiliki nilai yang hilang dengan data lainnya. Saya akan menggunakan rumus berikut:</p>
 <div class="math notranslate nohighlight">
 \[1/s_i = \sum_{h_i \in O_i \cap O_j} (y_{ih} - y_{jh})^2\]</div>
@@ -1184,13 +1185,13 @@ dtype: float64
 </div>
 </section>
 <section id="langkah-3-hitung-estimasi-menggunakan-weighted-average">
-<h3>Langkah 3: Hitung Estimasi Menggunakan Weighted Average<a class="headerlink" href="#langkah-3-hitung-estimasi-menggunakan-weighted-average" title="Link to this heading">#</a></h3>
+<h2>Langkah 3: Hitung Estimasi Menggunakan Weighted Average<a class="headerlink" href="#langkah-3-hitung-estimasi-menggunakan-weighted-average" title="Link to this heading">#</a></h2>
 <p>Dalam menghitung estimasi kita menggunakan rumus Weighted Average yang telah dijelaskan sebelumnya:</p>
 <div class="math notranslate nohighlight">
 \[\hat{y}_{ih} = \frac{\sum_{j \in I_{Kih}} s_i(y_j)y_{jh}}{\sum_{j \in I_{Kih}} s_i(y_j)}\]</div>
 <p>Dengan mengalikan kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>) dengan nilai JML dari data yang memiliki nilai JML (Data 1 - 6) dan kemudian menjumlahkannya, lalu dibagi dengan jumlah kemiripan untuk mendapatkan estimasi nilai JML yang hilang pada Data 7.</p>
 <section id="pembilang-atas">
-<h4>Pembilang (Atas):<a class="headerlink" href="#pembilang-atas" title="Link to this heading">#</a></h4>
+<h3>Pembilang (Atas):<a class="headerlink" href="#pembilang-atas" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Data 1: <span class="math notranslate nohighlight">\(4 \times 0 = 0\)</span></p></li>
 <li><p>Data 2: <span class="math notranslate nohighlight">\(4 \times 1 = 4\)</span></p></li>
@@ -1202,13 +1203,13 @@ dtype: float64
 <p>Total Pembilang = <span class="math notranslate nohighlight">\(0 + 4 + 0 + 4 + 0 + 0,8 = 8,8\)</span></p>
 </section>
 <section id="penyebut-bawah">
-<h4>Penyebut (Bawah):<a class="headerlink" href="#penyebut-bawah" title="Link to this heading">#</a></h4>
+<h3>Penyebut (Bawah):<a class="headerlink" href="#penyebut-bawah" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(4 + 4 + 0,8 + 4 + 4 + 0,8 = 17,6\)</span></p></li>
 </ul>
 </section>
 <section id="hasil-akhir">
-<h4>Hasil Akhir:<a class="headerlink" href="#hasil-akhir" title="Link to this heading">#</a></h4>
+<h3>Hasil Akhir:<a class="headerlink" href="#hasil-akhir" title="Link to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
 \[\hat{y}_{ih} = \frac{8,8}{17,6} = 0,5\]</div>
 <p>Berikut adalah data setelah dilakukan imputasi:</p>
@@ -1308,7 +1309,6 @@ Hasil Akhir Data setelah imputasi:
 </section>
 </section>
 </section>
-</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1383,16 +1383,16 @@ Hasil Akhir Data setelah imputasi:
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-wknn-imputation-dengan-normalisasi-data">Tugas WKNN Imputation dengan Normalisasi Data</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langakah-1-normalisasi-data">Langakah 1: Normalisasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-normalisasi-data">Langkah 1: Normalisasi Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-nilai-minimum-dan-maksimum">Menentukan Nilai Minimum dan Maksimum</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-kolom-ipk">Perhitungan Normalisasi Kolom IPK:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-dan-kemiripan-s-i">Langkah 2: Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-estimasi-menggunakan-weighted-average">Langkah 3: Hitung Estimasi Menggunakan Weighted Average</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pembilang-atas">Pembilang (Atas):</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penyebut-bawah">Penyebut (Bawah):</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">Hasil Akhir:</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-dan-kemiripan-s-i">Langkah 2: Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-estimasi-menggunakan-weighted-average">Langkah 3: Hitung Estimasi Menggunakan Weighted Average</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pembilang-atas">Pembilang (Atas):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penyebut-bawah">Penyebut (Bawah):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">Hasil Akhir:</a></li>
 </ul>
 </li>
 </ul>
