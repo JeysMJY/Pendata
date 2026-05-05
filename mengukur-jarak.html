@@ -205,6 +205,7 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="analisa-data-naive-bayes.html">Analisa Data Menggunakan Naive Bayes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-preparation.html">Data Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modeling.html">Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a></li>
@@ -2354,6 +2355,21 @@ Jarak: 1.0
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total Jarak Gower (P0 vs P1): 0.4751
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_jarak</span> <span class="o">=</span> <span class="p">[</span><span class="n">manhattan_norm</span><span class="p">,</span> <span class="n">dist_sex</span><span class="p">,</span> <span class="n">dist_emb</span><span class="p">,</span> <span class="n">dist_pclass</span><span class="p">]</span>
+<span class="n">hasil_gower</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">list_jarak</span><span class="p">)</span> <span class="o">/</span> <span class="mi">7</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil_gower</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.47514860277339965
 </pre></div>
 </div>
 </div>

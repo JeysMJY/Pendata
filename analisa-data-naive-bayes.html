@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Business Understanding &#8212; Catatan Mata Kuliah Penambangan Data</title>
+    <title>Analisa Data Menggunakan Naive Bayes &#8212; Catatan Mata Kuliah Penambangan Data</title>
   
   
   
@@ -57,12 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'business-understanding';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'analisa-data-naive-bayes';</script>
     <link rel="icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Understanding" href="data-understanding.html" />
-    <link rel="prev" title="MOHAMMAD JEFRI YUSUF 240411100183" href="intro.html" />
+    <link rel="next" title="Data Preparation" href="data-preparation.html" />
+    <link rel="prev" title="UTS - KLASIFIKASI KESUBURAN TANAH - PENAMBANGAN DATA" href="uts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,7 +181,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business-understanding.html">Business Understanding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-understanding.html">Data Understanding</a></li>
 
 
@@ -203,7 +203,7 @@
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="analisa-data-naive-bayes.html">Analisa Data Menggunakan Naive Bayes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analisa Data Menggunakan Naive Bayes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data-preparation.html">Data Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modeling.html">Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a></li>
@@ -278,7 +278,7 @@
       
       
       
-      <li><a href="https://github.com/JeysMJY/Pendata/issues/new?title=Issue%20on%20page%20%2Fbusiness-understanding.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/JeysMJY/Pendata/issues/new?title=Issue%20on%20page%20%2Fanalisa-data-naive-bayes.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -308,7 +308,7 @@
       
       
       
-      <li><a href="_sources/business-understanding.ipynb" target="_blank"
+      <li><a href="_sources/analisa-data-naive-bayes.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -379,9 +379,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -392,22 +390,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Business Understanding</h1>
+    <h1>Analisa Data Menggunakan Naive Bayes</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tujuan-bisnis-determine-business-objectives">1. Menentukan Tujuan Bisnis (Determine Business Objectives)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menilai-situasi-dan-kondisi-assess-situation">2. Menilai Situasi dan Kondisi (Assess Situation)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tujuan-data-mining-determine-data-mining-goals">3. Menentukan Tujuan Data Mining (Determine Data Mining Goals)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-rencana-proyek-produce-project-plan">4. Membuat Rencana Proyek (Produce Project Plan)</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -417,46 +404,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="business-understanding">
-<h1>Business Understanding<a class="headerlink" href="#business-understanding" title="Link to this heading">#</a></h1>
-<p>Fase Pemahaman Bisnis (Business Understanding) adalah fase awal yang krusial dalam siklus proyek data mining. Fase ini berfokus pada pemahaman proyek dan kebutuhan dari perspektif bisnis, yang kemudian diterjemahkan menjadi definisi masalah data mining secara teknis beserta rencana penyelesaiannya.</p>
-<hr class="docutils" />
-<p>Berikut adalah catatan materi dari fase Pemahaman Bisnis:</p>
-<section id="menentukan-tujuan-bisnis-determine-business-objectives">
-<h2>1. Menentukan Tujuan Bisnis (Determine Business Objectives)<a class="headerlink" href="#menentukan-tujuan-bisnis-determine-business-objectives" title="Link to this heading">#</a></h2>
-<p>Tujuan utama pada langkah ini adalah memahami secara menyeluruh apa yang benar-benar ingin dicapai oleh pelanggan atau organisasi dari perspektif bisnis. Mengabaikan pemahaman ini dapat menyebabkan tenaga terbuang sia-sia karena memberikan jawaban yang benar untuk pertanyaan yang salah.</p>
-<ul class="simple">
-<li><p><strong>Latar Belakang (Background):</strong> Mendokumentasikan situasi bisnis organisasi saat proyek dimulai. Ini mencakup identifikasi area masalah, struktur organisasi, peran orang-orang kunci, sasaran kelompok, dan solusi yang sudah ada saat ini.</p></li>
-<li><p><strong>Tujuan Bisnis (Business Objectives):</strong> Mendeskripsikan sasaran utama bisnis (misalnya “mempertahankan pelanggan agar tidak pindah ke pesaing”) beserta pertanyaan bisnis turunan lainnya (misalnya “apakah penurunan biaya administrasi memengaruhi retensi pelanggan bernilai tinggi?”).</p></li>
-<li><p><strong>Kriteria Keberhasilan Bisnis (Business Success Criteria):</strong> Mendefinisikan tolak ukur keberhasilan proyek dari kacamata bisnis. Kriteria ini bisa bersifat spesifik dan dapat diukur secara objektif (seperti mengurangi tingkat churn hingga persentase tertentu), atau bersifat subjektif (seperti “memberikan wawasan yang berguna”).</p></li>
-</ul>
-</section>
-<section id="menilai-situasi-dan-kondisi-assess-situation">
-<h2>2. Menilai Situasi dan Kondisi (Assess Situation)<a class="headerlink" href="#menilai-situasi-dan-kondisi-assess-situation" title="Link to this heading">#</a></h2>
-<p>Langkah ini adalah proses pencarian fakta yang lebih mendetail mengenai semua sumber daya, kendala, asumsi, dan faktor eksternal maupun internal yang perlu dipertimbangkan untuk proyek.</p>
-<ul class="simple">
-<li><p><strong>Inventaris Sumber Daya:</strong> Mendata personel (ahli data, ahli bisnis), ketersediaan data, serta infrastruktur perangkat keras dan lunak.</p></li>
-<li><p><strong>Persyaratan, Asumsi, dan Kendala:</strong> Mencatat tenggat waktu, masalah keamanan/hukum, serta asumsi-asumsi yang diambil selama proyek.</p></li>
-<li><p><strong>Risiko dan Kontinjensi:</strong> Mengidentifikasi kemungkinan hambatan (seperti kualitas data yang buruk) dan menyiapkan rencana cadangan.</p></li>
-<li><p><strong>Analisis Biaya dan Manfaat:</strong> Menilai apakah potensi keuntungan finansial atau strategis sebanding dengan biaya investasi proyek.</p></li>
-</ul>
-</section>
-<section id="menentukan-tujuan-data-mining-determine-data-mining-goals">
-<h2>3. Menentukan Tujuan Data Mining (Determine Data Mining Goals)<a class="headerlink" href="#menentukan-tujuan-data-mining-determine-data-mining-goals" title="Link to this heading">#</a></h2>
-<p>Menerjemahkan tujuan bisnis ke dalam istilah teknis analisis data.</p>
-<ul class="simple">
-<li><p><strong>Tujuan Data Mining:</strong> Menentukan output teknis yang dibutuhkan (misalnya: membangun model klasifikasi untuk memprediksi risiko kredit atau melakukan klastering untuk segmentasi pasar).</p></li>
-<li><p><strong>Kriteria Keberhasilan Data Mining:</strong> Menentukan standar teknis performa model, seperti tingkat akurasi (accuracy), presisi (precision), atau tingkat kesalahan minimal yang dapat ditoleransi.</p></li>
-</ul>
-</section>
-<section id="membuat-rencana-proyek-produce-project-plan">
-<h2>4. Membuat Rencana Proyek (Produce Project Plan)<a class="headerlink" href="#membuat-rencana-proyek-produce-project-plan" title="Link to this heading">#</a></h2>
-<p>Menyusun strategi dan langkah-langkah kerja untuk mencapai tujuan yang telah ditetapkan.</p>
-<ul class="simple">
-<li><p><strong>Rencana Proyek:</strong> Menyusun jadwal kerja (roadmap), durasi tiap fase, ketergantungan antar tugas, dan titik evaluasi proyek.</p></li>
-<li><p><strong>Penilaian Awal Alat dan Teknik:</strong> Memilih algoritma, teknik pemodelan, serta perangkat lunak yang akan digunakan untuk eksekusi proyek.</p></li>
-</ul>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="analisa-data-menggunakan-naive-bayes">
+<h1>Analisa Data Menggunakan Naive Bayes<a class="headerlink" href="#analisa-data-menggunakan-naive-bayes" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -490,20 +439,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="uts.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">MOHAMMAD JEFRI YUSUF 240411100183</p>
+        <p class="prev-next-title">UTS - KLASIFIKASI KESUBURAN TANAH - PENAMBANGAN DATA</p>
       </div>
     </a>
     <a class="right-next"
-       href="data-understanding.html"
+       href="data-preparation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Understanding</p>
+        <p class="prev-next-title">Data Preparation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -513,24 +462,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tujuan-bisnis-determine-business-objectives">1. Menentukan Tujuan Bisnis (Determine Business Objectives)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menilai-situasi-dan-kondisi-assess-situation">2. Menilai Situasi dan Kondisi (Assess Situation)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tujuan-data-mining-determine-data-mining-goals">3. Menentukan Tujuan Data Mining (Determine Data Mining Goals)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-rencana-proyek-produce-project-plan">4. Membuat Rencana Proyek (Produce Project Plan)</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
