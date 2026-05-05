@@ -379,7 +379,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -395,6 +397,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding-pima-indians-diabetes-database">Data Understanding: Pima Indians Diabetes Database</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -406,6 +416,65 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analisa-data-menggunakan-naive-bayes">
 <h1>Analisa Data Menggunakan Naive Bayes<a class="headerlink" href="#analisa-data-menggunakan-naive-bayes" title="Link to this heading">#</a></h1>
+<section id="data-understanding-pima-indians-diabetes-database">
+<h2>Data Understanding: Pima Indians Diabetes Database<a class="headerlink" href="#data-understanding-pima-indians-diabetes-database" title="Link to this heading">#</a></h2>
+<p><strong>Informasi Dataset:</strong></p>
+<ul class="simple">
+<li><p><strong>Nama Dataset:</strong> Pima Indians Diabetes Database</p></li>
+<li><p><strong>Jumlah Fitur:</strong> 8 fitur (kolom prediktor)</p></li>
+<li><p><strong>Jumlah Kelas:</strong> 2 kelas (0 = Negatif/Tidak Diabetes, 1 = Positif/Diabetes)</p></li>
+<li><p><strong>Jumlah Data:</strong> 768 baris</p></li>
+<li><p><strong>Target / Label:</strong> Kolom <code class="docutils literal notranslate"><span class="pre">Outcome</span></code></p></li>
+</ul>
+<p><strong>Deskripsi Fitur:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama Kolom</p></th>
+<th class="head"><p>Tipe Data</p></th>
+<th class="head"><p>Penjelasan Fitur</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pregnancies</p></td>
+<td><p>Integer</p></td>
+<td><p>Jumlah kehamilan yang pernah dialami pasien</p></td>
+</tr>
+<tr class="row-odd"><td><p>Glucose</p></td>
+<td><p>Integer</p></td>
+<td><p>Konsentrasi glukosa plasma 2 jam dalam tes toleransi glukosa oral</p></td>
+</tr>
+<tr class="row-even"><td><p>BloodPressure</p></td>
+<td><p>Integer</p></td>
+<td><p>Tekanan darah diastolik (mm Hg)</p></td>
+</tr>
+<tr class="row-odd"><td><p>SkinThickness</p></td>
+<td><p>Integer</p></td>
+<td><p>Ketebalan lipatan kulit trisep (mm)</p></td>
+</tr>
+<tr class="row-even"><td><p>Insulin</p></td>
+<td><p>Integer</p></td>
+<td><p>Insulin serum 2 jam (mu U/ml)</p></td>
+</tr>
+<tr class="row-odd"><td><p>BMI</p></td>
+<td><p>Float</p></td>
+<td><p>Indeks massa tubuh (berat dalam kg / (tinggi dalam meter)^2)</p></td>
+</tr>
+<tr class="row-even"><td><p>DiabetesPedigreeFunction</p></td>
+<td><p>Float</p></td>
+<td><p>Fungsi silsilah diabetes (indikator riwayat genetik keluarga)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Age</p></td>
+<td><p>Integer</p></td>
+<td><p>Usia (tahun)</p></td>
+</tr>
+<tr class="row-even"><td><p>Outcome</p></td>
+<td><p>Integer</p></td>
+<td><p>Variabel kelas (Target/Label). 0 berarti tidak diabetes, 1 berarti diabetes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -462,6 +531,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding-pima-indians-diabetes-database">Data Understanding: Pima Indians Diabetes Database</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
